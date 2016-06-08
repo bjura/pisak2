@@ -15,11 +15,11 @@ class _ApplicationContext(QObject):
         self._resources = Resources()
         self._settings = Settings()
 
-    @pyqtProperty(QObject)
+    @pyqtProperty(QObject, constant=True)
     def settings(self):
         return self._settings
 
-    @pyqtProperty(QObject)
+    @pyqtProperty(QObject, constant=True)
     def resources(self):
         return self._resources
 
