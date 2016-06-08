@@ -19,7 +19,7 @@ Item {
     property int interval: 1000
     property int jitter: 0
     property bool scanningSoundEnabled: true
-    property url scanningSoundFile: "../res/scanningSound.wav"
+    property url scanningSoundFile: "scanningSound"
 
     // sampling type, so far only "order" available. In future possibly also something like:
     // "random", "random with replacement" etc. Describes how to pick next element to be scanned.
@@ -43,7 +43,7 @@ Item {
 
     PisakSoundEffect {
         id: scanningSound
-        source: scanningSoundFile
+        source: pisak.resources.getSoundPath(scanningSoundFile)
     }
 
     Timer {
@@ -55,14 +55,14 @@ Item {
     }
 
     function startCycle() {
-        group.scanningHiliteOn()
+        group.scanningHighliteOn()
         timer.start()
     }
 
     function stopCycle() {
         timer.stop()
         __currentElement.hoverOff()
-        group.scanningHiliteOff()
+        group.scanningHighliteOff()
         __currentElementIdx = 0
         __cycleIdx = 0
         __inited = false

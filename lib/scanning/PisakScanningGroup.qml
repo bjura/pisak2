@@ -16,7 +16,7 @@ Item {
 
     property PisakScanningStrategy strategy: PisakScanningStrategyBasic { group: main }
 
-    property bool scanningHiliteEnabled: true
+    property bool scanningHighliteEnabled: true
 
     readonly property bool isScannable: true
     readonly property string scannableType: "ScanningGroup"
@@ -40,17 +40,17 @@ Item {
         }
     }
 
-    function scanningHiliteOn() {
-        if (scanningHiliteEnabled) {
+    function scanningHighliteOn() {
+        if (scanningHighliteEnabled) {
             for(var i = 0; i < elements.length; i++) {
-                elements[i].scanningHiliteOn()
+                elements[i].scanningHighliteOn()
             }
         }
     }
 
-    function scanningHiliteOff() {
+    function scanningHighliteOff() {
         for(var i = 0; i < elements.length; i++) {
-            elements[i].scanningHiliteOn()
+            elements[i].scanningHighliteOn()
         }
     }
 }

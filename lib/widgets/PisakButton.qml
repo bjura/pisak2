@@ -35,12 +35,12 @@ Button {
             name: "hover"
         },
         State {
-            name: "scanningHilite"
+            name: "scanningHighlite"
         }
     ]
 
-    property string styleClass: "pisakButton"
-    property url soundFile: ""
+    property string styleClass: "button"
+    property url soundName: ""
 
     readonly property bool isScannable: true
     readonly property string scannableType: "ScannableElement"
@@ -50,7 +50,7 @@ Button {
 
     PisakSoundEffect {
         id: sound
-        source: soundFile
+        source: pisak.resources.getSoundPath(soundName)
     }
 
     onStateChanged: {
@@ -76,14 +76,14 @@ Button {
 
     function hoverOff() {
         // do it more flexible:
-        state = "scanningHilite"
+        state = "scanningHighlite"
     }
 
-    function scanningHiliteOn() {
-        state = "scanningHilite"
+    function scanningHighliteOn() {
+        state = "scanningHighlite"
     }
 
-    function scanningHiliteOff() {
+    function scanningHighliteOff() {
         state = "rest"
     }
 }
