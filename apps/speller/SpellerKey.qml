@@ -6,9 +6,11 @@ PisakButton {
 
     onClicked: target.typeText(text)
 
-    property string textDefault: text
+    property string textDefault: qsTr("")
     property string textSpecial1: qsTr("")
     property string textSpecial2: qsTr("")
+
+    text: textDefault
 
     function changeText(textType) {
         switch (textType) {

@@ -1,5 +1,5 @@
-import QtQml 2.2
-import QtQuick.Layouts 1.3
+import QtQuick 2.5
+import QtQuick.Layouts 1.2
 import "../../lib"
 import "../../lib/widgets"
 import "../../lib/scanning"
@@ -21,7 +21,9 @@ PisakApplication {
 
     PisakScanningGroup {
         id: mainMenuScanningGroup
-        elements: [buttonClearAll, buttonUndo, buttonGoToKeyboard, buttonExit]
+        elements: [buttonClearAll, buttonBackspace,  buttonNewLine, buttonCursorForward,
+            buttonCursorBackward, buttonUndo, buttonGoToKeyboard, buttonSpecial1CharSet,
+            buttonDefaultCharSet, buttonExit]
     }
 
     PisakScanningGroup {
@@ -31,215 +33,247 @@ PisakApplication {
 
     PisakScanningGroup {
         id: keyboardGroup1ScanningGroup
-        elements: [buttonKeyboard1, buttonKeyboard2, buttonKeyboard3, buttonKeyboard4, buttonKeyboard5]
+        elements: [key1, key2, key3, key4, key5]
     }
 
     PisakScanningGroup {
         id: keyboardGroup2ScanningGroup
-        elements: [buttonKeyboard6, buttonKeyboard7, buttonKeyboard8, buttonKeyboard9]
+        elements: [key6, key7, key8, key9]
     }
 
-    StackLayout {
+    ColumnLayout {
         anchors.fill: parent
 
-        ColumnLayout {
-            anchors.fill: parent
+        RowLayout {
+            id: mainMenu
 
-            RowLayout {
-                id: mainMenu
-
-                PisakButton {
-                    id: buttonClearAll
-                    text: qsTr("WYCZYŚĆ")
-                    onClicked: textArea.clearAll()
-                }
-
-                PisakButton {
-                    id: buttonUndo
-                    text: qsTr("COFNIJ")
-                    onClicked: textArea.undo()
-                }
-
-                PisakButton {
-                    id: buttonGoToKeyboard
-                    text: qsTr("KLAWIATURA")
-                    onClicked: scanningController.goToGroup(keyboardScanningGroup)
-                }
-
-                PisakButton {
-                    id: buttonExit
-                    text: qsTr("WYJŚCIE")
-                    onClicked: main.exitApp()
-                }
+            SpellerButton {
+                id: buttonClearAll
+                text: qsTr("WYCZYŚĆ")
+                onClicked: textArea.clearAll()
             }
 
-            RowLayout {
-                id: inputArea
+            SpellerButton {
+                id: buttonBackspace
+                text: qsTr("SKASUJ OSTATNI")
+                onClicked: textArea.backspace()
+            }
 
-                PisakTextArea {
-                    id: textArea
-                    width: main.width * 0.6
-                    height: main.height * 0.5
+            SpellerButton {
+                id: buttonNewLine
+                text: qsTr("ENTER")
+                onClicked: textArea.newLine()
+            }
+
+            SpellerButton {
+                id: buttonCursorForward
+                text: qsTr("DO PRZODU")
+                onClicked: textArea.cursorForward()
+            }
+
+            SpellerButton {
+                id: buttonCursorBackward
+                text: qsTr("DO TYŁU")
+                onClicked: textArea.cursorBackward()
+            }
+
+            SpellerButton {
+                id: buttonUndo
+                text: qsTr("COFNIJ")
+                onClicked: textArea.undo()
+            }
+
+            SpellerButton {
+                id: buttonGoToKeyboard
+                text: qsTr("KLAWIATURA")
+                onClicked: scanningController.goToGroup(keyboardScanningGroup)
+            }
+
+            SpellerButton {
+                id: buttonSpecial1CharSet
+                text: qsTr("ZNAKI SPECJALNE")
+                onClicked: keyboard.special1CharSet()
+            }
+
+            SpellerButton {
+                id: buttonDefaultCharSet
+                text: qsTr("ZWYKŁE ZNAKI")
+                onClicked: keyboard.defaultCharSet()
+            }
+
+            SpellerButton {
+                id: buttonExit
+                text: qsTr("WYJŚCIE")
+                onClicked: main.exitApp()
+            }
+        }
+
+        RowLayout {
+            id: inputArea
+
+            SpellerTextArea {
+                id: textArea
+                width: main.width * 0.6
+                height: main.height * 0.5
+            }
+
+            SpellerKeyboard {
+                id: keyboard
+
+                SpellerKey {
+                    id: key1
+                    textDefault: qsTr("Q")
+                    target: textArea
                 }
 
-                SpellerKeyboard {
-                    id: keyboard
+                SpellerKey {
+                    id: key2
+                    textDefault: qsTr("W")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard1
-                        text: qsTr("Q")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key3
+                    textDefault: qsTr("E")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard2
-                        text: qsTr("W")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key4
+                    textDefault: qsTr("R")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard3
-                        text: qsTr("E")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key5
+                    textDefault: qsTr("T")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard4
-                        text: qsTr("R")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key6
+                    textDefault: qsTr("Y")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard5
-                        text: qsTr("T")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key7
+                    textDefault: qsTr("U")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard6
-                        text: qsTr("Y")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key8
+                    textDefault: qsTr("I")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard7
-                        text: qsTr("U")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key9
+                    textDefault: qsTr("O")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard8
-                        text: qsTr("I")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key10
+                    textDefault: qsTr("P")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard9
-                        text: qsTr("O")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key11
+                    textDefault: qsTr("A")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard10
-                        text: qsTr("P")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key12
+                    textDefault: qsTr("S")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard11
-                        text: qsTr("A")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key13
+                    textDefault: qsTr("D")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard12
-                        text: qsTr("S")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key14
+                    textDefault: qsTr("F")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard13
-                        text: qsTr("D")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key15
+                    textDefault: qsTr("G")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard14
-                        text: qsTr("F")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key16
+                    textDefault: qsTr("H")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard15
-                        text: qsTr("G")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key17
+                    textDefault: qsTr("J")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard16
-                        text: qsTr("H")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key18
+                    textDefault: qsTr("K")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard17
-                        text: qsTr("J")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key19
+                    textDefault: qsTr("L")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard18
-                        text: qsTr("K")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key20
+                    textDefault: qsTr("Z")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard19
-                        text: qsTr("L")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key21
+                    textDefault: qsTr("X")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard20
-                        text: qsTr("Z")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key22
+                    textDefault: qsTr("C")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard21
-                        text: qsTr("X")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key23
+                    textDefault: qsTr("V")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard22
-                        text: qsTr("C")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key24
+                    textDefault: qsTr("B")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard23
-                        text: qsTr("V")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key25
+                    textDefault: qsTr("N")
+                    target: textArea
+                }
 
-                    SpellerKey {
-                        id: buttonKeyboard24
-                        text: qsTr("B")
-                        target: textArea
-                    }
-
-                    SpellerKey {
-                        id: buttonKeyboard25
-                        text: qsTr("N")
-                        target: textArea
-                    }
-
-                    SpellerKey {
-                        id: buttonKeyboard26
-                        text: qsTr("M")
-                        target: textArea
-                    }
+                SpellerKey {
+                    id: key26
+                    textDefault: qsTr("M")
+                    target: textArea
                 }
             }
         }

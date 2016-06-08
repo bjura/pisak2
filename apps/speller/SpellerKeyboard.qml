@@ -1,11 +1,11 @@
-import QtQuick.Layouts 1.3
+import QtQuick.Layouts 1.2
 
 
 GridLayout {
     columns: 5
 
     function __changeCharSet(setName) {
-        for(int i = 0; i < children.length; i++) {
+        for(var i = 0; i < children.length; i++) {
             children[i].changeText(setName)
         }
     }
