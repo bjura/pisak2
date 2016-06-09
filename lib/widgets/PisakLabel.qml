@@ -3,4 +3,5 @@ import QtQuick.Controls 1.4
 
 
 Label {
+    font.capitalization: Font[pisak.settings.fontCapitalization]
 }
