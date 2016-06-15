@@ -34,10 +34,9 @@ Item {
 
     property alias __repeatableTimer: timer.repeat
 
-    property bool __inited: false
     property int __cycleIdx: 0
     property var __currentElement: ({})
-    property int __currentElementIdx: 0
+    property int __currentElementIdx: -1
     property var __elements: group.elements
     property int __elementCount: __elements.length
 
@@ -55,17 +54,16 @@ Item {
     }
 
     function startCycle() {
-        group.scanningHighliteOn()
+        group.state = "active"
+        group.state = "focusable"
         timer.start()
     }
 
     function stopCycle() {
         timer.stop()
-        __currentElement.hoverOff()
-        group.scanningHighliteOff()
-        __currentElementIdx = 0
+        group.state = "normal"
+        __currentElementIdx = -1
         __cycleIdx = 0
-        __inited = false
     }
 
     function pauseCycle() {
@@ -78,7 +76,6 @@ Item {
 
     function select() {
         stopCycle()
-        __currentElement.beforeSelect()
         return __currentElement
     }
 
@@ -96,11 +93,13 @@ Item {
     }
 
     function __onCycleTimeout() {
-        if (__inited) { __currentElement.hoverOff() }
+        if (__currentElementIdx >= 0) {
+            __currentElement.state = "focusable"
+        }
         __currentElement = __exposeNextElement()
         if (__currentElement) {
             if (scanningSoundEnabled) { __playScanningSound() }
-            __currentElement.hoverOn()
+            __currentElement.state = "focus"
             if (!__repeatableTimer) {
                 __continueCycle()
             }
@@ -119,19 +118,14 @@ Item {
     }
 
     function __exposeNextElement() {
-        if (!__inited) {
-            __inited = true
-        } else {
-            if (__currentElementIdx == __elementCount - 1) {
-                if (__cycleIdx == maxCycleCount - 1) {
-                    stopCycle()
-                    groupExhausted()
-                    return
-                } else { __cycleIdx += 1 }
-            }
-            __currentElementIdx = __getNextElementIdx()
+        if (__currentElementIdx == __elementCount - 1) {
+            if (__cycleIdx == maxCycleCount - 1) {
+                stopCycle()
+                groupExhausted()
+                return
+            } else { __cycleIdx += 1 }
         }
+        __currentElementIdx = __getNextElementIdx()
         return __elements[__currentElementIdx]
     }
-
 }

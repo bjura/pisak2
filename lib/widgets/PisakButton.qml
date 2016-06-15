@@ -4,12 +4,13 @@ import QtQuick.Controls.Styles 1.4
 import ".."
 import "../style"
 import "../media"
+import "../scanning"
 
 
 Button {
     id: button
     text: qsTr("Przycisk")
-    state: "rest"
+    state: "normal"
 
     style: ButtonStyle {
         label: PisakLabel {
@@ -23,19 +24,25 @@ Button {
             radius: __styleSpec.radius
             border.color: __styleSpec.border
             border.width: __styleSpec.borderWidth
-
         }
     }
 
+
     states: [
         State {
-            name: "rest"
+          name: "disabled"
         },
         State {
-            name: "hover"
+            name: "normal"
         },
         State {
-            name: "scanningHighlite"
+            name: "focus"
+        },
+        State {
+            name: "focusable"
+        },
+        State {
+          name: "active"
         }
     ]
 
@@ -45,17 +52,20 @@ Button {
     readonly property bool isScannable: true
     readonly property string scannableType: "ScannableElement"
 
-    property var __styleSpec: PisakStyle[styleClass][state]
-    property string __previousState: state
+    property var parentScanningGroup: ({})
+
+    property var __styleSpec: PisakStyle.skin[styleClass][state]
 
     PisakSoundEffect {
         id: sound
         source: pisak.resources.getSoundPath(soundName)
     }
 
-    onStateChanged: {
-        // TODO: Do something more wise here
-        __previousState = state
+    onParentScanningGroupChanged: {
+        if (parentScanningGroup.stateChanged !== undefined) {
+           parentScanningGroup.stateChanged.connect(
+               function(state){ if (state !== "active") { button.state = state } })
+       }
     }
 
     function playSound() {
@@ -64,26 +74,5 @@ Button {
 
     function select() {
         clicked()
-    }
-
-    function beforeSelect() {
-        // do something with the button, for example make it blink
-    }
-
-    function hoverOn() {
-        state = "hover"
-    }
-
-    function hoverOff() {
-        // do it more flexible:
-        state = "scanningHighlite"
-    }
-
-    function scanningHighliteOn() {
-        state = "scanningHighlite"
-    }
-
-    function scanningHighliteOff() {
-        state = "rest"
     }
 }

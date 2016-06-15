@@ -102,19 +102,20 @@ Item {
     }
 
     function __unwind() {
-        // TODO: when current is main group then scanning goes stand-by
-        var previousGroup = __currentGroup
+        __previousGroup = __currentGroup
         if (__currentGroup != mainGroup) {
-            if (__currentGroup.parentGroup) {
-                __currentGroup = __currentGroup.parentGroup
-            } else if (__previousGroup) {
-                __currentGroup = __previousGroup
+            if (__currentGroup.parentScanningGroup) {
+                __currentGroup = __currentGroup.parentScanningGroup
             } else {
                 __currentGroup = mainGroup
             }
-            __previousGroup = previousGroup
             __runCurrentGroup()
+        } else {
+            __goStandBy()
         }
     }
 
+    function __goStandBy() {
+        stopScanning()
+    }
 }

@@ -10,47 +10,46 @@ import QtQuick 2.5
 */
 Item {
     id: main
+    state: "normal"
+
+    states: [
+        State {
+          name: "disabled"
+        },
+        State {
+            name: "normal"
+        },
+        State {
+            name: "focus"
+        },
+        State {
+            name: "focusable"
+        },
+        State {
+            name: "active"
+        }
+    ]
 
     property var elements: []
-    property var parentGroup: ({})
+    property var parentScanningGroup: ({})
 
     property PisakScanningStrategy strategy: PisakScanningStrategyBasic { group: main }
-
-    property bool scanningHighliteEnabled: true
 
     readonly property bool isScannable: true
     readonly property string scannableType: "ScanningGroup"
 
-    function beforeSelect() {
-        // do something with the elements, for example make them blink
-        for(var i = 0; i < elements.length; i++) {
-            elements[i].beforeSelect()
-        }
+    onParentScanningGroupChanged: {
+        if (parentScanningGroup.stateChanged !== undefined) {
+           parentScanningGroup.stateChanged.connect(
+               function(state){ if (state !== "active") { main.state = state } })
+       }
     }
 
-    function hoverOn() {
+    onElementsChanged: {
         for(var i = 0; i < elements.length; i++) {
-            elements[i].hoverOn()
-        }
-    }
-
-    function hoverOff() {
-        for(var i = 0; i < elements.length; i++) {
-            elements[i].hoverOff()
-        }
-    }
-
-    function scanningHighliteOn() {
-        if (scanningHighliteEnabled) {
-            for(var i = 0; i < elements.length; i++) {
-                elements[i].scanningHighliteOn()
-            }
-        }
-    }
-
-    function scanningHighliteOff() {
-        for(var i = 0; i < elements.length; i++) {
-            elements[i].scanningHighliteOn()
+            if (!elements[i].isScannable) {
+                // elements.splice(i, 1)
+            } else { elements[i].parentScanningGroup = main }
         }
     }
 }
