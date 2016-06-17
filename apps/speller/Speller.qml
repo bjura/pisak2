@@ -16,35 +16,18 @@ PisakApplication {
 
     PisakScanningGroup {
         id: mainScanningGroup
-        elements: [mainMenuScanningGroup, keyboardScanningGroup]
+        elements: [mainMenuScanningGroup, keyboard.mainScanningGroup]
     }
 
     PisakScanningGroup {
         id: mainMenuScanningGroup
-        elements: [buttonClearAll, buttonBackspace,  buttonNewLine, buttonCursorForward,
-            buttonCursorBackward, buttonUndo, buttonGoToKeyboard, buttonSpecial1CharSet,
-            buttonDefaultCharSet, buttonExit]
+        elements: mainMenu.children
     }
 
-    PisakScanningGroup {
-        id: keyboardScanningGroup
-        elements: [keyboardGroup1ScanningGroup, keyboardGroup1ScanningGroup]
-    }
-
-    PisakScanningGroup {
-        id: keyboardGroup1ScanningGroup
-        elements: [key1, key2, key3, key4, key5]
-    }
-
-    PisakScanningGroup {
-        id: keyboardGroup2ScanningGroup
-        elements: [key6, key7, key8, key9]
-    }
-
-    ColumnLayout {
+    RowLayout {
         anchors.fill: parent
 
-        RowLayout {
+        ColumnLayout {
             id: mainMenu
 
             SpellerButton {
@@ -108,13 +91,14 @@ PisakApplication {
             }
         }
 
-        RowLayout {
+        ColumnLayout {
             id: inputArea
 
             SpellerTextArea {
                 id: textArea
                 width: main.width * 0.6
                 height: main.height * 0.5
+                charSets: []
             }
 
             SpellerKeyboard {

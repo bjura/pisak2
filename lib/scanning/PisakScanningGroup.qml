@@ -10,6 +10,7 @@ import QtQuick 2.5
 */
 Item {
     id: main
+    visible: false
 
     property var elements: []
     property var parentGroup: ({})
