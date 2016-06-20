@@ -70,7 +70,7 @@ Item {
     }
 
     function __onInputMethodChange() {
-        var input = pisak.settings.input
+        var input = pisak.settings.input || "keyboard"
         if (input === "mouse-switch") {
             mouseArea.onClicked = controller.__onInputEvent()
         } else if (input === "keyboard") {
