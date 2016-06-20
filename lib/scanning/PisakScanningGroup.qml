@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import "../media"
 
 /*!
     \qmltype PisakScanningGroup
@@ -10,7 +11,13 @@ import QtQuick 2.5
 */
 Item {
     id: main
-    state: "normal"
+
+    signal unwind()
+
+    signal goToSubgroup(var subgroup)
+
+    state: (parentScanningGroup.state !== undefined && parentScanningGroup.state !== "active")
+           ? parentScanningGroup.state : "normal"
 
     states: [
         State {
@@ -30,19 +37,20 @@ Item {
         }
     ]
 
+    property string soundName: ""
+
     property var elements: []
     property var parentScanningGroup: ({})
 
     property PisakScanningStrategy strategy: PisakScanningStrategyBasic { group: main }
 
     readonly property bool isScannable: true
-    readonly property string scannableType: "ScanningGroup"
 
-    onParentScanningGroupChanged: {
-        if (parentScanningGroup.stateChanged !== undefined) {
-           parentScanningGroup.stateChanged.connect(
-               function(state){ if (state !== "active") { main.state = state } })
-       }
+    readonly property bool running: strategy.running
+
+    PisakSoundEffect {
+        id: __sound
+        source: pisak.resources.getSoundPath(soundName)
     }
 
     onElementsChanged: {
@@ -51,5 +59,28 @@ Item {
                 // elements.splice(i, 1)
             } else { elements[i].parentScanningGroup = main }
         }
+    }
+
+    function playSound() {
+        __sound.play()
+    }
+
+    function startScanning() {
+        state = "active"
+        strategy.startCycle()
+    }
+
+    function stopScanning() {
+        strategy.stopCycle()
+    }
+
+    function onInputEvent() {
+        var currentElement = strategy.getCurrentElement()
+        stopScanning()
+        goToSubgroup(currentElement)
+    }
+
+    function select() {
+        startScanning()
     }
 }

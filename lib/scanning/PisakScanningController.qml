@@ -15,19 +15,16 @@ Item {
 
     property bool running: false
 
-    property var __previousGroup: ({})
     property var __currentGroup: ({})
-    property var __currentGroupStrategy: ({})
 
     Component.onCompleted: {
         controller.__onInputMethodChange()
     }
 
-    on__CurrentGroupChanged: {
-        __currentGroupStrategy = __currentGroup.strategy
-        if (__currentGroupStrategy !== undefined) {
-            __currentGroupStrategy.groupExhausted.connect(__unwind)
-        }
+    Connections {
+        target: __currentGroup
+        onUnwind: __unwind()
+        onGoToSubgroup: __goToGroup(subgroup)
     }
 
     MouseArea {
@@ -56,17 +53,12 @@ Item {
         }
     }
 
-    function goToGroup(group) {
-        __stopCurrentGroup()
-        __onNewGroupEntered(group)
-    }
-
     function __runCurrentGroup() {
-        __currentGroupStrategy.startCycle()
+        __currentGroup.startScanning()
     }
 
     function __stopCurrentGroup() {
-        __currentGroupStrategy.stopCycle()
+        __currentGroup.stopScanning()
     }
 
     function __onInputMethodChange() {
@@ -78,44 +70,23 @@ Item {
         }
     }
 
-    function __onNewGroupEntered(newGroup) {
-        __previousGroup = __currentGroup
-        __currentGroup = newGroup
-        __runCurrentGroup()
-    }
-
-    function __onElementSelected(element) {
-        element.select()
-        // Here the select could have lead to some other group and started it - if not then do unwind:
-        if (!__currentGroupStrategy.running) { __unwind() }
-    }
-
     function __onInputEvent() {
         if (running) {
-            var selected = __currentGroupStrategy.select()
-            if (selected.scannableType === "ScanningGroup") {
-                __onNewGroupEntered(selected)
-            } else if (selected.scannableType === "ScannableElement") {
-                __onElementSelected(selected)
-            }
-        } else { __runCurrentGroup() }
-    }
-
-    function __unwind() {
-        __previousGroup = __currentGroup
-        if (__currentGroup != mainGroup) {
-            if (__currentGroup.parentScanningGroup) {
-                __currentGroup = __currentGroup.parentScanningGroup
-            } else {
-                __currentGroup = mainGroup
-            }
-            __runCurrentGroup()
-        } else {
-            __goStandBy()
+            __currentGroup.onInputEvent()
         }
     }
 
-    function __goStandBy() {
-        stopScanning()
+    function __goToGroup(group) {
+        __currentGroup = group
+        group.select()
+    }
+
+    function __unwind() {
+        if (__currentGroup != mainGroup) {
+            if (__currentGroup.parentScanningGroup) {
+                __currentGroup = __currentGroup.parentScanningGroup
+            } else { __currentGroup = mainGroup }
+            __runCurrentGroup()
+        } else { stopScanning() }
     }
 }

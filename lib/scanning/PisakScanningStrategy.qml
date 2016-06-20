@@ -11,8 +11,6 @@ Item {
     id: main
     visible: false
 
-    signal groupExhausted()
-
     property var group: ({})
 
     property int maxCycleCount: 2
@@ -54,7 +52,6 @@ Item {
     }
 
     function startCycle() {
-        group.state = "active"
         group.state = "focusable"
         timer.start()
     }
@@ -74,8 +71,7 @@ Item {
         running = true
     }
 
-    function select() {
-        stopCycle()
+    function getCurrentElement() {
         return __currentElement
     }
 
@@ -121,7 +117,7 @@ Item {
         if (__currentElementIdx == __elementCount - 1) {
             if (__cycleIdx == maxCycleCount - 1) {
                 stopCycle()
-                groupExhausted()
+                group.unwind()
                 return
             } else { __cycleIdx += 1 }
         }
