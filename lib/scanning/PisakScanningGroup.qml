@@ -12,9 +12,7 @@ import "../media"
 Item {
     id: main
 
-    signal unwind()
-
-    signal goToSubgroup(var subgroup)
+    signal activeGroupChanged(var group)
 
     state: (parentScanningGroup.state !== undefined && parentScanningGroup.state !== "active")
            ? parentScanningGroup.state : "normal"
@@ -77,10 +75,18 @@ Item {
     function onInputEvent() {
         var currentElement = strategy.getCurrentElement()
         stopScanning()
-        goToSubgroup(currentElement)
+        activeGroupChanged(currentElement)
+        currentElement.select()
     }
 
     function select() {
         startScanning()
+    }
+
+    function unwind() {
+        if (parentScanningGroup) {
+            activeGroupChanged(parentScanningGroup)
+            parentScanningGroup.startScanning()
+        }
     }
 }

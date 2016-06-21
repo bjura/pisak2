@@ -23,8 +23,7 @@ Item {
 
     Connections {
         target: __currentGroup
-        onUnwind: __unwind()
-        onGoToSubgroup: __goToGroup(subgroup)
+        onActiveGroupChanged: __currentGroup = group
     }
 
     MouseArea {
@@ -53,6 +52,12 @@ Item {
         }
     }
 
+    function goToGroup(group) {
+        __stopCurrentGroup()
+        __currentGroup = group
+        __runCurrentGroup()
+    }
+
     function __runCurrentGroup() {
         __currentGroup.startScanning()
     }
@@ -74,19 +79,5 @@ Item {
         if (running) {
             __currentGroup.onInputEvent()
         }
-    }
-
-    function __goToGroup(group) {
-        __currentGroup = group
-        group.select()
-    }
-
-    function __unwind() {
-        if (__currentGroup != mainGroup) {
-            if (__currentGroup.parentScanningGroup) {
-                __currentGroup = __currentGroup.parentScanningGroup
-            } else { __currentGroup = mainGroup }
-            __runCurrentGroup()
-        } else { stopScanning() }
     }
 }
