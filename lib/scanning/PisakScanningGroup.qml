@@ -14,8 +14,7 @@ Item {
 
     signal activeGroupChanged(var group)
 
-    state: (parentScanningGroup.state !== undefined && parentScanningGroup.state !== "active")
-           ? parentScanningGroup.state : "normal"
+    state: "normal"
 
     states: [
         State {
@@ -34,6 +33,10 @@ Item {
             name: "active"
         }
     ]
+
+    property string __state: parentScanningGroup.state
+
+    on__StateChanged: { if (__state !== "active") { state = __state } }
 
     property string soundName: ""
 
