@@ -34,7 +34,7 @@ Item {
         }
     ]
 
-    property string __state: parentScanningGroup.state
+    property string __state: parentScanningGroup.state || "normal"
 
     on__StateChanged: { if (__state !== "active") { state = __state } }
 
