@@ -3,76 +3,69 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import ".."
 import "../style"
-import "../media"
 import "../scanning"
 
 
-Button {
-    id: button
-    text: qsTr("Przycisk")
-    state: "normal"
+/*!
+    \qmltype PisakButton
+    \brief Pisak button base class.
 
-    style: ButtonStyle {
-        label: PisakLabel {
-            text: control.text
-            color: __styleSpec.foreground
-            font.family: __styleSpec.fontFamily
-            font.pixelSize: __styleSpec.fontPixelSize
-        }
-        background: PisakRectangle {
-            color: __styleSpec.background
-            radius: __styleSpec.radius
-            border.color: __styleSpec.border
-            border.width: __styleSpec.borderWidth
-        }
+    Represents basic GUI element that can by styled easily.
+*/
+PisakScanningGroup {
+    signal clicked()
+
+    property alias text: __button.text
+
+    /*!
+        \qmlproperty string PisakButton::styleClass
+
+        Name of the object that can be used by a style sheet to define its style properties.
+
+        The default value is \c "button".
+    */
+    property string styleClass: "button"
+
+    /*!
+        \qmlmethod void PisakButton::select()
+
+        Selects the button - emits the \c clicked signal.
+    */
+    function select() {
+        state = "active"
+        clicked()
+        unwind()
     }
 
+    /*!
+        \qmlproperty PisakScanningGroup PisakButton::parentScanningGroup
 
-    states: [
-        State {
-          name: "disabled"
-        },
-        State {
-            name: "normal"
-        },
-        State {
-            name: "focus"
-        },
-        State {
-            name: "focusable"
-        },
-        State {
-          name: "active"
-        }
-    ]
+        Group that the given button belongs to as one of its elements.
 
-    property string styleClass: "button"
-    property url soundName: ""
-
-    readonly property bool isScannable: true
-    readonly property string scannableType: "ScannableElement"
-
+        The default value is \c null.
+    */
     property var parentScanningGroup: ({})
 
-    property var __styleSpec: PisakStyle.skin[styleClass][state]
+    Button {
+        id: __button
 
-    PisakSoundEffect {
-        id: sound
-        source: pisak.resources.getSoundPath(soundName)
-    }
+        style: ButtonStyle {
+            label: PisakLabel {
+                text: control.text
+                color: __styleSpec.foreground
+                font.family: __styleSpec.fontFamily
+                font.pixelSize: __styleSpec.fontPixelSize
+            }
+            background: PisakRectangle {
+                color: __styleSpec.background
+                radius: __styleSpec.radius
+                border.color: __styleSpec.border
+                border.width: __styleSpec.borderWidth
+            }
+        }
 
-    onParentScanningGroupChanged: {
-        if (parentScanningGroup.stateChanged !== undefined) {
-           parentScanningGroup.stateChanged.connect(
-               function(state){ if (state !== "active") { button.state = state } })
-       }
-    }
+        readonly property var __styleSpec: PisakStyle.skin[parent.styleClass][parent.state]
 
-    function playSound() {
-        sound.play()
-    }
-
-    function select() {
-        clicked()
+        onClicked: parent.clicked()
     }
 }
