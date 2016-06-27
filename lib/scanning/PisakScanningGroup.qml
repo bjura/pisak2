@@ -89,7 +89,11 @@ Item {
     function unwind() {
         if (parentScanningGroup) {
             activeGroupChanged(parentScanningGroup)
-            parentScanningGroup.startScanning()
+            parentScanningGroup.onSubgroupUnwind()
         }
+    }
+
+    function onSubgroupUnwind() {
+        startScanning()
     }
 }
