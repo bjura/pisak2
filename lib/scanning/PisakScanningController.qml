@@ -15,7 +15,9 @@ Item {
 
     property bool running: false
 
-    property var __currentGroup: ({})
+    // Connections below require target of a proper type that contains
+    // the given signal so we put a placeholder PisakScanningGroup here:
+    property PisakScanningGroup __currentGroup: PisakScanningGroup {}
 
     Component.onCompleted: {
         controller.__onInputMethodChange()
