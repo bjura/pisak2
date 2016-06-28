@@ -1,4 +1,8 @@
+import QtQuick.Layouts 1.2
 import "../../lib/widgets"
 
 
-PisakButton {}
+PisakButton {
+    Layout.minimumHeight: 75
+    Layout.minimumWidth: 200
+}
