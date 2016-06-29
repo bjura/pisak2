@@ -11,6 +11,7 @@ import "../media"
 */
 Item {
     id: main
+    visible: false
 
     signal activeGroupChanged(var group)
 
