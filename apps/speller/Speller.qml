@@ -12,6 +12,28 @@ PisakMainWindow {
     width: Screen.width * 0.7
     height: Screen.height * 0.7
 
+    Component.onCompleted: scanningController.startScanning()
+
+    PisakScanningController {
+        id: scanningController
+        mainGroup: mainScanningGroup
+    }
+
+    PisakScanningGroup {
+        id: mainScanningGroup
+        elements: [mainMenuGroup, predictionGroup]//, keyboard.mainScanningGroup]
+    }
+
+    PisakScanningGroup {
+        id: mainMenuGroup
+        elements: mainMenuPanel.children
+    }
+
+    PisakScanningGroup {
+        id: predictionGroup
+        elements: predictionPanel.children
+    }
+
     RowLayout {
         width: parent.width
         height: parent.height
@@ -77,7 +99,7 @@ PisakMainWindow {
             Repeater {
                 model: 8
                 SpellerButton {
-                    text: qsTr("PREDYKCJA " + index)
+                    text: qsTr("PREDYKCJA " + (index + 1))
                 }
             }
         }

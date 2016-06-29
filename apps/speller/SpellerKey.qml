@@ -1,8 +1,6 @@
 import QtQuick.Layouts 1.2
-import "../../lib/widgets"
 
 
-PisakButton {
-    Layout.minimumHeight: 50
+SpellerButton {
     Layout.minimumWidth: 50
 }

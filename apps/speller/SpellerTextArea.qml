@@ -3,6 +3,8 @@ import "../../lib/widgets"
 
 
 PisakTextArea {
-    Layout.minimumHeight: 200
+    Layout.minimumHeight: 150
     Layout.minimumWidth: 200
+    Layout.fillHeight: true
+    Layout.fillWidth: true
 }

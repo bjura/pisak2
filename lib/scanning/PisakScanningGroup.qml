@@ -58,7 +58,7 @@ Item {
 
         \sa isScannable
     */
-    property var elements: []
+    property var elements: new Array(0)
 
     /*!
         \qmlproperty PisakScanningGroup PisakScanningGroup::parentScanningGroup

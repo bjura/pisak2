@@ -16,7 +16,7 @@ if (!initialized) {
     init();
 }
 
-function init(undefined) {
+function init() {
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
 

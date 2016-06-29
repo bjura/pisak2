@@ -5,4 +5,6 @@ import "../../lib/widgets"
 PisakButton {
     Layout.minimumHeight: 50
     Layout.minimumWidth: 150
+    Layout.fillHeight: true
+    Layout.fillWidth: true
 }
