@@ -21,7 +21,7 @@ PisakMainWindow {
 
     PisakScanningGroup {
         id: mainScanningGroup
-        elements: [mainMenuGroup, predictionGroup]//, keyboard.mainScanningGroup]
+        elements: [mainMenuGroup, predictionGroup, keyboard.mainScanningGroup]
     }
 
     PisakScanningGroup {
