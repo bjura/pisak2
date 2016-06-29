@@ -1,4 +1,8 @@
+import QtQuick.Layouts 1.2
 import "../../lib/widgets"
 
 
-PisakTextArea {}
+PisakTextArea {
+    Layout.minimumHeight: 200
+    Layout.minimumWidth: 200
+}

@@ -3,6 +3,6 @@ import "../../lib/widgets"
 
 
 PisakButton {
-    Layout.minimumHeight: 75
-    Layout.minimumWidth: 200
+    Layout.minimumHeight: 50
+    Layout.minimumWidth: 150
 }

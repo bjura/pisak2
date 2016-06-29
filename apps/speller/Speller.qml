@@ -57,6 +57,16 @@ PisakMainWindow {
                 text: qsTr("WYJŚCIE")
                 onClicked: main.exitApp()
             }
+
+            SpellerButton {
+                id: buttonPrint
+                text: qsTr("DRUKUJ")
+            }
+
+            SpellerButton {
+                id: buttonSave
+                text: qsTr("ZAPISZ")
+            }
         }
 
         ColumnLayout {
@@ -64,12 +74,11 @@ PisakMainWindow {
             Layout.alignment: Qt.AlignVCenter
             spacing: 5
 
-            SpellerButton {
-                text: qsTr("PREDYKCJA 1")
-            }
-
-            SpellerButton {
-                text: qsTr("PREDYKCJA 1")
+            Repeater {
+                model: 8
+                SpellerButton {
+                    text: qsTr("PREDYKCJA " + index)
+                }
             }
         }
 
@@ -83,10 +92,10 @@ PisakMainWindow {
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            Rectangle {
+            SpellerKeyboard {
                 id: keyboard
+                textArea: textArea
                 Layout.alignment: Qt.AlignHCenter
-                color: "grey"
             }
         }
     }
