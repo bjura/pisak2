@@ -66,6 +66,17 @@ ColumnLayout {
         __mainScanningGroup.elements = __scanningGroups
     }
 
+    onCharSetChanged: {
+        // static keyboard layout
+        for(var rowIdx = 0; rowIdx < __rows.length; rowIdx++) {
+            for(var colIdx = 0; colIdx < __rows[rowIdx].length; colIdx++) {
+                if (rowIdx < __currentCharSet.length && colIdx < __currentCharSet[rowIdx].length) {
+                    __rows[rowIdx][colIdx].text = __currentCharSet[rowIdx][colIdx]
+                }
+            }
+        }
+    }
+
     function upperCase() {}
 
     function lowerCase() {}

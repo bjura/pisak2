@@ -14,110 +14,117 @@ PisakMainWindow {
 
     Component.onCompleted: scanningController.startScanning()
 
-    PisakScanningController {
-        id: scanningController
-        mainGroup: mainScanningGroup
-    }
+    PisakApplication {
+        id: app
+        anchors.fill: parent
 
-    PisakScanningGroup {
-        id: mainScanningGroup
-        elements: [mainMenuGroup, predictionGroup, keyboard.mainScanningGroup]
-    }
+        onExitApp: main.close()
 
-    PisakScanningGroup {
-        id: mainMenuGroup
-        elements: mainMenuPanel.children
-    }
-
-    PisakScanningGroup {
-        id: predictionGroup
-        elements: predictionPanel.children
-    }
-
-    RowLayout {
-        width: parent.width
-        height: parent.height
-        spacing: 5
-
-        ColumnLayout {
-            id: mainMenuPanel
-            Layout.alignment: Qt.AlignVCenter
-            spacing: 5
-
-            SpellerButton {
-                id: buttonClearAll
-                text: qsTr("WYCZYŚĆ")
-                onClicked: textArea.clearAll()
-            }
-
-            SpellerButton {
-                id: buttonBackspace
-                text: qsTr("SKASUJ OSTATNI")
-                onClicked: textArea.backspace()
-            }
-
-            SpellerButton {
-                id: buttonNewLine
-                text: qsTr("ENTER")
-                onClicked: textArea.newLine()
-            }
-
-            SpellerButton {
-                id: buttonCursorForward
-                text: qsTr("DO PRZODU")
-                onClicked: textArea.cursorForward()
-            }
-
-            SpellerButton {
-                id: buttonCursorBackward
-                text: qsTr("DO TYŁU")
-                onClicked: textArea.cursorBackward()
-            }
-
-            SpellerButton {
-                id: buttonExit
-                text: qsTr("WYJŚCIE")
-                onClicked: main.exitApp()
-            }
-
-            SpellerButton {
-                id: buttonPrint
-                text: qsTr("DRUKUJ")
-            }
-
-            SpellerButton {
-                id: buttonSave
-                text: qsTr("ZAPISZ")
-            }
+        PisakScanningController {
+            id: scanningController
+            mainGroup: mainScanningGroup
         }
 
-        ColumnLayout {
-            id: predictionPanel
-            Layout.alignment: Qt.AlignVCenter
+        PisakScanningGroup {
+            id: mainScanningGroup
+            elements: [mainMenuGroup, predictionGroup, keyboard.mainScanningGroup]
+        }
+
+        PisakScanningGroup {
+            id: mainMenuGroup
+            elements: mainMenuPanel.children
+        }
+
+        PisakScanningGroup {
+            id: predictionGroup
+            elements: predictionPanel.children
+        }
+
+        RowLayout {
+            width: parent.width
+            height: parent.height
             spacing: 5
 
-            Repeater {
-                model: 8
+            ColumnLayout {
+                id: mainMenuPanel
+                Layout.alignment: Qt.AlignVCenter
+                spacing: 5
+
                 SpellerButton {
-                    text: qsTr("PREDYKCJA " + (index + 1))
+                    id: buttonClearAll
+                    text: qsTr("WYCZYŚĆ")
+                    onClicked: textArea.clearAll()
+                }
+
+                SpellerButton {
+                    id: buttonBackspace
+                    text: qsTr("SKASUJ OSTATNI")
+                    onClicked: textArea.backspace()
+                }
+
+                SpellerButton {
+                    id: buttonNewLine
+                    text: qsTr("ENTER")
+                    onClicked: textArea.newLine()
+                }
+
+                SpellerButton {
+                    id: buttonCursorForward
+                    text: qsTr("DO PRZODU")
+                    onClicked: textArea.cursorForward()
+                }
+
+                SpellerButton {
+                    id: buttonCursorBackward
+                    text: qsTr("DO TYŁU")
+                    onClicked: textArea.cursorBackward()
+                }
+
+                SpellerButton {
+                    id: buttonExit
+                    text: qsTr("WYJŚCIE")
+                    onClicked: app.exitApp()
+                }
+
+                SpellerButton {
+                    id: buttonPrint
+                    text: qsTr("DRUKUJ")
+                }
+
+                SpellerButton {
+                    id: buttonSave
+                    text: qsTr("ZAPISZ")
                 }
             }
-        }
 
-        ColumnLayout {
-            id: inputAreaPanel
-            Layout.alignment: Qt.AlignVCenter
-            spacing: 5
+            ColumnLayout {
+                id: predictionPanel
+                Layout.alignment: Qt.AlignVCenter
+                spacing: 5
 
-            SpellerTextArea {
-                id: textArea
-                Layout.alignment: Qt.AlignHCenter
+                Repeater {
+                    model: 8
+                    SpellerButton {
+                        text: qsTr("PREDYKCJA " + (index + 1))
+                    }
+                }
             }
 
-            SpellerKeyboard {
-                id: keyboard
-                textArea: textArea
-                Layout.alignment: Qt.AlignHCenter
+            ColumnLayout {
+                id: inputAreaPanel
+                Layout.alignment: Qt.AlignVCenter
+                spacing: 5
+
+                SpellerTextArea {
+                    id: textArea
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                SpellerKeyboard {
+                    id: keyboard
+                    textArea: textArea
+                    Layout.alignment: Qt.AlignHCenter
+                }
             }
         }
     }
