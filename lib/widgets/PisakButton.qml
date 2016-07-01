@@ -40,15 +40,6 @@ PisakScanningGroup {
         unwind()
     }
 
-    /*!
-        \qmlproperty PisakScanningGroup PisakButton::parentScanningGroup
-
-        Group that the given button belongs to as one of its elements.
-
-        The default value is \c null.
-    */
-    property var parentScanningGroup: ({})
-
     Button {
         id: __button
         anchors.fill: parent

@@ -3,13 +3,9 @@ import QtQuick.Layouts 1.2
 import "../../lib/scanning"
 
 
-GridLayout {
+ColumnLayout {
     id: keyboard
-    columns: 7
-    rows: 4
-
-    rowSpacing: 5
-    columnSpacing: rowSpacing
+    spacing: 5
 
     property SpellerTextArea textArea: ({})
 
@@ -20,31 +16,54 @@ GridLayout {
                                         ["g", "h", "j", "k", "l", "z", "x"],
                                         [".", " ", "c", "v", "b", "n", "m"]]}
 
-    property var __currentCharSet: charSets[charSet]
+    readonly property int rows: __currentCharSet.length
+
+    readonly property PisakScanningGroup mainScanningGroup: __mainScanningGroup
+
+    readonly property var __currentCharSet: charSets[charSet]
 
     property var __scanningGroups: new Array(0)
 
-    PisakScanningGroup {
-        id: mainScanningGroup
-        elements: []
-    }
+    property var __rows: new Array(0)
 
     Repeater {
         model: rows
-        PisakScanningGroup {
-            id: group
-            Component.onCompleted: keyboard.__scanningGroups.push(group)
+
+        RowLayout {
+            id: row
+            Layout.alignment: Qt.AlignHCenter
+
+            property int rowIndex: index
+
+            Repeater {
+                model: __currentCharSet[rowIndex].length
+
+                SpellerKey {
+                    id: key
+                    text: keyboard.__currentCharSet[rowIndex][index]
+
+                    onClicked: keyboard.textArea.typeText(text)
+                }
+            }
+
+            PisakScanningGroup {
+                id: group
+                elements: row.children
+            }
+
+            Component.onCompleted: {
+                keyboard.__rows.push(row)
+                keyboard.__scanningGroups.push(group)
+            }
         }
     }
 
-    Repeater {
-        model: rows*columns
-        SpellerKey {
-            id: key
-            text: __currentCharSet[Math.floor(index / keyboard.columns)][index % keyboard.columns]
-            onClicked: keyboard.textArea.typeText(text)
-            Component.onCompleted: keyboard.__scanningGroups[Math.floor(index / keyboard.columns)].elements.push(key)
-        }
+    PisakScanningGroup {
+        id: __mainScanningGroup
+    }
+
+    Component.onCompleted: {
+        __mainScanningGroup.elements = __scanningGroups
     }
 
     function upperCase() {}
