@@ -14,6 +14,10 @@ TextArea {
 
     wrapMode: TextEdit.Wrap
 
+    property string styleClass: "textArea"
+
+    readonly property var __styleSpec: PisakStyle.skin[styleClass]
+
     Rectangle {
         x: main.cursorRectangle.x
         y: main.cursorRectangle.y
@@ -29,9 +33,14 @@ TextArea {
         }
     }
 
-    property string styleClass: "textArea"
+    onWidthChanged: __onResized()
+    onHeightChanged: __onResized()
 
-    readonly property var __styleSpec: PisakStyle.skin[styleClass]
+    function __onResized() {
+        if (cursorRectangle.y > (y + height)) {
+            flickableItem.contentY = cursorRectangle.y - height*0.8
+        }
+    }
 
     /*!
         \qmlmethod void PisakTextArea::typeText(string text)
