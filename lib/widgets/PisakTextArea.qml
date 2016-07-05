@@ -10,6 +10,7 @@ import QtQuick.Controls 1.4
 */
 TextArea {
     wrapMode: TextEdit.Wrap
+    activeFocusOnPress: false
 
     /*!
         \qmlmethod void PisakTextArea::typeText(string text)
