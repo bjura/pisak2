@@ -11,6 +11,15 @@ import QtQuick.Controls 1.4
 TextArea {
     wrapMode: TextEdit.Wrap
 
+    onWidthChanged: __onResized()
+    onHeightChanged: __onResized()
+
+    function __onResized() {
+        if (cursorRectangle.y > (y + height)) {
+            flickableItem.contentY = cursorRectangle.y - height*0.8
+        }
+    }
+
     /*!
         \qmlmethod void PisakTextArea::typeText(string text)
 
