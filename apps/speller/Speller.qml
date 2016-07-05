@@ -105,7 +105,7 @@ PisakMainWindow {
                 Repeater {
                     model: 8
                     SpellerButton {
-                        text: qsTr("PREDYKCJA " + (index + 1))
+                        text: qsTr("PREDYKCJA %1").arg(index+1)
                     }
                 }
             }
