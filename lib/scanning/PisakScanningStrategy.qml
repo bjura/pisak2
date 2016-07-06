@@ -234,7 +234,7 @@ Item {
         if (__currentElementIdx == __elementCount - 1) {
             if (__cycleIdx == maxCycleCount - 1) {
                 stopCycle()
-                group.unwind()
+                group.unwind(1)
                 return
             } else { __cycleIdx += 1 }
         }

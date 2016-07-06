@@ -37,7 +37,7 @@ PisakScanningGroup {
     function select() {
         state = "active"
         clicked()
-        unwind()
+        unwind(2)
     }
 
     Button {

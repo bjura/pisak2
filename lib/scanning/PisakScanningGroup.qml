@@ -134,10 +134,14 @@ Item {
         startScanning()
     }
 
-    function unwind() {
+    function unwind(levels) {
         if (parentScanningGroup !== null) {
-            activeGroupChanged(parentScanningGroup)
-            parentScanningGroup.onSubgroupUnwind()
+            if (levels > 1) {
+                parentScanningGroup.unwind(levels-1)
+            } else {
+                activeGroupChanged(parentScanningGroup)
+                parentScanningGroup.onSubgroupUnwind()
+            }
         }
     }
 
