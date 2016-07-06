@@ -51,12 +51,6 @@ PisakMainWindow {
                 spacing: 5
 
                 SpellerButton {
-                    id: buttonClearAll
-                    text: qsTr("WYCZYŚĆ")
-                    onClicked: textArea.clearAll()
-                }
-
-                SpellerButton {
                     id: buttonBackspace
                     text: qsTr("SKASUJ OSTATNI")
                     onClicked: textArea.backspace()
@@ -81,9 +75,39 @@ PisakMainWindow {
                 }
 
                 SpellerButton {
-                    id: buttonExit
-                    text: qsTr("WYJŚCIE")
-                    onClicked: app.exitApp()
+                    id: buttonKeyboard
+                    text: qsTr("LITERY")
+                }
+
+                SpellerButton {
+                    id: buttonPrediction
+                    text: qsTr("PREDYKCJA")
+                }
+
+                SpellerButton {
+                    id: buttonClearAll
+                    text: qsTr("WYCZYŚĆ")
+                    onClicked: textArea.clearAll()
+                }
+
+                SpellerButton {
+                    id: buttonSave
+                    text: qsTr("ZAPISZ")
+                }
+
+                SpellerButton {
+                    id: buttonLoad
+                    text: qsTr("WCZYTAJ")
+                }
+
+                SpellerButton {
+                    id: buttonRead
+                    text: qsTr("PRZECZYTAJ")
+                }
+
+                SpellerButton {
+                    id: buttonSend
+                    text: qsTr("WYŚLIJ")
                 }
 
                 SpellerButton {
@@ -92,8 +116,9 @@ PisakMainWindow {
                 }
 
                 SpellerButton {
-                    id: buttonSave
-                    text: qsTr("ZAPISZ")
+                    id: buttonExit
+                    text: qsTr("WYJŚCIE")
+                    onClicked: app.exitApp()
                 }
             }
 
