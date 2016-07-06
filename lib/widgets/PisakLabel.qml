@@ -5,7 +5,7 @@ import ".."
 
 Label {
     font.pixelSize: PisakGlobals.fontPixelSize
-    font.capitalization: Font[pisak.settings.fontCapitalization || "AllUppercase"]
+    font.capitalization: Font[pisak.settings.fontCapitalization || "MixedCase"]
     elide: Text.ElideRight
     verticalAlignment: Text.AlignVCenter
     horizontalAlignment: Text.AlignHCenter
