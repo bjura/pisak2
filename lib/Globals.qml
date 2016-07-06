@@ -10,7 +10,7 @@ QtObject {
     readonly property int __refFontPixelSize: Math.min(__refWindowHeight,
                                                   __refWindowWidth) * 0.035
     readonly property int __minFontPixelSize: Math.min(__refWindowHeight,
-                                                       __refWindowWidth) * 0.01
+                                                       __refWindowWidth) * 0.015
 
     property int windowWidth: __refWindowWidth
     property int windowHeight: __refWindowHeight

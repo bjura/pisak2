@@ -1,4 +1,5 @@
 import QtQuick.Layouts 1.2
+import "../../lib"
 
 
 SpellerButton {
