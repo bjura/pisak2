@@ -1,5 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
+import ".."
 
 
 /*!
@@ -10,6 +11,7 @@ import QtQuick.Controls 1.4
 */
 TextArea {
     wrapMode: TextEdit.Wrap
+    font.pixelSize: PisakGlobals.fontPixelSize
 
     /*!
         \qmlmethod void PisakTextArea::typeText(string text)

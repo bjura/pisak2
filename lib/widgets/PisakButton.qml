@@ -49,7 +49,6 @@ PisakScanningGroup {
                 text: control.text
                 color: control.__styleSpec.foreground
                 font.family: control.__styleSpec.fontFamily
-                font.pixelSize: control.__styleSpec.fontPixelSize
             }
             background: PisakRectangle {
                 color: control.__styleSpec.background
