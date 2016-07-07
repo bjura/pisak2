@@ -113,7 +113,7 @@ Item {
     property int __cycleIdx: 0
     property var __currentElement: ({})
     property int __currentElementIdx: -1
-    property var __elements: group.elements
+    property var __elements: []
     property int __elementCount: __elements.length
 
     PisakSoundEffect {
@@ -145,6 +145,7 @@ Item {
         \sa stopCycle()
     */
     function startCycle() {
+        __updateElements()
         group.state = "focusable"
         if (startUpLag > 0) {
             __startUpTimer.start()
@@ -190,6 +191,17 @@ Item {
 
     function getCurrentElement() {
         return __currentElement
+    }
+
+    function __updateElements() {
+        var elements = new Array(0)
+        for(var i = 0; i < group.elements.length; i++) {
+            var element = group.elements[i]
+            if (element.isScannable && element.state !== "disabled") {
+                elements.push(element)
+            }
+        }
+        __elements = elements
     }
 
     function __calculateTimerInterval() {
