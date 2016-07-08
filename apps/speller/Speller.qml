@@ -27,7 +27,7 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: mainScanningGroup
-            elements: [mainMenuGroup, predictionGroup, keyboard.mainScanningGroup]
+            elements: [mainMenuGroup, predictionGroup, keyboardGroup]
         }
 
         PisakScanningGroup {
@@ -37,7 +37,18 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: predictionGroup
+            state: "disabled"
             elements: predictionPanel.children
+        }
+
+        PisakScanningGroup {
+            id: keyboardGroup
+            elements: [keyboardMenuGroup, keyboard.mainScanningGroup]
+        }
+
+        PisakScanningGroup {
+            id: keyboardMenuGroup
+            elements: keyboardMenu.children
         }
 
         RowLayout {
@@ -51,49 +62,55 @@ PisakMainWindow {
                 spacing: 5
 
                 SpellerButton {
+                    id: buttonFromMainMenuToKeyboard
+                    text: qsTr("LITERY")
+                }
+
+                SpellerButton {
+                    id: buttonFromMainMenuToPrediction
+                    text: qsTr("PREDYKCJA")
+                }
+
+                SpellerButton {
                     id: buttonClearAll
                     text: qsTr("WYCZYŚĆ")
                     onClicked: textArea.clearAll()
                 }
 
                 SpellerButton {
-                    id: buttonBackspace
-                    text: qsTr("SKASUJ OSTATNI")
-                    onClicked: textArea.backspace()
+                    id: buttonSave
+                    text: qsTr("ZAPISZ")
+                    state: "disabled"
                 }
 
                 SpellerButton {
-                    id: buttonNewLine
-                    text: qsTr("ENTER")
-                    onClicked: textArea.newLine()
+                    id: buttonLoad
+                    text: qsTr("WCZYTAJ")
+                    state: "disabled"
                 }
 
                 SpellerButton {
-                    id: buttonCursorForward
-                    text: qsTr("DO PRZODU")
-                    onClicked: textArea.cursorForward()
+                    id: buttonRead
+                    text: qsTr("PRZECZYTAJ")
+                    state: "disabled"
                 }
 
                 SpellerButton {
-                    id: buttonCursorBackward
-                    text: qsTr("DO TYŁU")
-                    onClicked: textArea.cursorBackward()
+                    id: buttonSend
+                    text: qsTr("WYŚLIJ")
+                    state: "disabled"
+                }
+
+                SpellerButton {
+                    id: buttonPrint
+                    text: qsTr("DRUKUJ")
+                    state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonExit
                     text: qsTr("WYJŚCIE")
                     onClicked: app.exitApp()
-                }
-
-                SpellerButton {
-                    id: buttonPrint
-                    text: qsTr("DRUKUJ")
-                }
-
-                SpellerButton {
-                    id: buttonSave
-                    text: qsTr("ZAPISZ")
                 }
             }
 
@@ -118,6 +135,80 @@ PisakMainWindow {
                 SpellerTextArea {
                     id: textArea
                     Layout.alignment: Qt.AlignHCenter
+                }
+
+                RowLayout {
+                    id: keyboardMenu
+                    Layout.alignment: Qt.AlignHCenter
+
+                    SpellerSquareButton {
+                        id: buttonFromKeyboardToPrediction
+                        text: qsTr("PREDYKCJA")
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonUppercaseChars
+                        text: qsTr("DUŻE LITERY")
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonPolishChars
+                        text: qsTr("POLSKIE ZNAKI")
+                        state: "disabled"
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonSpecialChars
+                        text: qsTr("ZNAKI SPECJALNE")
+                        state: "disabled"
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonBackspace
+                        text: qsTr("SKASUJ OSTATNI")
+                        onClicked: textArea.backspace()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonNewLine
+                        text: qsTr("ENTER")
+                        onClicked: textArea.newLine()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonUndo
+                        text: qsTr("COFNIJ")
+                        state: "disabled"
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonCursorForward
+                        text: qsTr("DO PRZODU")
+                        onClicked: textArea.cursorForward()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonCursorBackward
+                        text: qsTr("DO TYŁU")
+                        onClicked: textArea.cursorBackward()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonCursorUp
+                        text: qsTr("DO GÓRY")
+                        state: "disabled"
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonCursorDown
+                        text: qsTr("W DÓŁ")
+                        state: "disabled"
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonFromKeyboardToMainMenu
+                        text: qsTr("NARZĘDZIA")
+                    }
                 }
 
                 SpellerKeyboard {

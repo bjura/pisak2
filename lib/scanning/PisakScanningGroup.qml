@@ -37,7 +37,7 @@ Item {
 
     property string __state: ((parentScanningGroup !== null) ? parentScanningGroup.state : "normal") || "normal"
 
-    on__StateChanged: { if (__state !== "active") { state = __state } }
+    on__StateChanged: { if (__state !== "active" && state !== "disabled") { state = __state } }
 
     /*!
         \qmlproperty string PisakScanningGroup::soundName
