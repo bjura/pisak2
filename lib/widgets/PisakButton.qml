@@ -14,6 +14,8 @@ import "../scanning"
     Represents basic GUI element that can by styled easily.
 */
 PisakScanningGroup {
+    id: button
+
     visible: true
 
     signal clicked()
@@ -37,6 +39,10 @@ PisakScanningGroup {
     function select() {
         state = "active"
         clicked()
+        __afterSelect()
+    }
+
+    function __afterSelect() {
         unwind(2)
     }
 

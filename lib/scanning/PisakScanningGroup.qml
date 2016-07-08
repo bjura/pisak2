@@ -39,6 +39,10 @@ Item {
 
     on__StateChanged: { if (__state !== "active" && state !== "disabled") { state = __state } }
 
+    property var validElements: new Array(0)
+
+    property int validElementCount: validElements.length
+
     /*!
         \qmlproperty string PisakScanningGroup::soundName
 
@@ -94,12 +98,16 @@ Item {
     }
 
     onElementsChanged: {
-        if (elements != undefined) {
+        if (elements !== undefined) {
+            var newElements = new Array(0)
             for(var i = 0; i < elements.length; i++) {
-                if (elements[i] == undefined || !elements[i].isScannable) {
-                    // elements.splice(i, 1)
-                } else { elements[i].parentScanningGroup = main }
+                var el = elements[i]
+                if (el !== undefined && el.isScannable && el.state !== "disabled") {
+                    newElements.push(el)
+                    el.parentScanningGroup = main
+                }
             }
+            validElements = newElements
         }
     }
 

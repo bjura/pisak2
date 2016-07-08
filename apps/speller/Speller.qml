@@ -61,14 +61,18 @@ PisakMainWindow {
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
 
-                SpellerButton {
+                SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToKeyboard
                     text: qsTr("LITERY")
+                    controller: scanningController
+                    targetGroup: keyboardGroup
                 }
 
-                SpellerButton {
+                SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToPrediction
                     text: qsTr("PREDYKCJA")
+                    controller: scanningController
+                    targetGroup: predictionGroup
                 }
 
                 SpellerButton {
@@ -141,9 +145,11 @@ PisakMainWindow {
                     id: keyboardMenu
                     Layout.alignment: Qt.AlignHCenter
 
-                    SpellerSquareButton {
+                    SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToPrediction
                         text: qsTr("PREDYKCJA")
+                        controller: scanningController
+                        targetGroup: predictionGroup
                     }
 
                     SpellerSquareButton {
@@ -205,9 +211,11 @@ PisakMainWindow {
                         state: "disabled"
                     }
 
-                    SpellerSquareButton {
+                    SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToMainMenu
                         text: qsTr("NARZĘDZIA")
+                        controller: scanningController
+                        targetGroup: mainMenuGroup
                     }
                 }
 
