@@ -27,7 +27,7 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: mainScanningGroup
-            elements: [mainMenuGroup, predictionGroup, keyboardGroup]
+            elements: [mainMenuGroup, predictionGroup, keyboard.mainScanningGroup]
         }
 
         PisakScanningGroup {
@@ -39,11 +39,6 @@ PisakMainWindow {
             id: predictionGroup
             state: "disabled"
             elements: predictionPanel.children
-        }
-
-        PisakScanningGroup {
-            id: keyboardGroup
-            elements: [keyboardMenuGroup, keyboard.mainScanningGroup]
         }
 
         PisakScanningGroup {
@@ -65,7 +60,7 @@ PisakMainWindow {
                     id: buttonFromMainMenuToKeyboard
                     text: qsTr("LITERY")
                     controller: scanningController
-                    targetGroup: keyboardGroup
+                    targetGroup: keyboard.mainScanningGroup
                 }
 
                 SpellerButtonScanningTeleporter {
@@ -223,6 +218,7 @@ PisakMainWindow {
                     id: keyboard
                     textArea: textArea
                     Layout.alignment: Qt.AlignHCenter
+                    menuGroup: keyboardMenuGroup
                 }
             }
         }
