@@ -102,7 +102,7 @@ Item {
             var newElements = new Array(0)
             for(var i = 0; i < elements.length; i++) {
                 var el = elements[i]
-                if (el !== undefined && el.isScannable && el.state !== "disabled") {
+                if (el !== undefined && el.isScannable) {
                     newElements.push(el)
                     el.parentScanningGroup = main
                 }

@@ -239,6 +239,7 @@ Item {
             } else { __cycleIdx += 1 }
         }
         __currentElementIdx = __getNextElementIdx()
-        return __elements[__currentElementIdx]
+        var nextElement = __elements[__currentElementIdx]
+        return nextElement.state !== "disabled" ? nextElement : __exposeNextElement()
     }
 }
