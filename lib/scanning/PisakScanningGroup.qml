@@ -132,9 +132,11 @@ Item {
     function onInputEvent() {
         if (running) {
             var currentElement = strategy.getCurrentElement()
-            stopScanning()
-            activeGroupChanged(currentElement)
-            currentElement.select()
+            if (currentElement !== null && currentElement !== undefined) {
+                stopScanning()
+                activeGroupChanged(currentElement)
+                currentElement.select()
+            }
         } else { startScanning() }
     }
 
