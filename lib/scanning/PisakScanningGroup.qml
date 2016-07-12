@@ -94,7 +94,7 @@ Item {
 
     PisakSoundEffect {
         id: __sound
-        source: pisak.resources.getSoundPath(soundName)
+        source: soundName ? pisak.resources.getSoundPath(soundName) : ""
     }
 
     onElementsChanged: {
