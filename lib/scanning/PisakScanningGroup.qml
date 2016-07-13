@@ -43,6 +43,10 @@ Item {
 
     property int validElementCount: validElements.length
 
+    property int activeFeedbackDuration: 1000
+
+    property int activeFeedbackBlinkInterval: 200
+
     /*!
         \qmlproperty string PisakScanningGroup::soundName
 
@@ -92,9 +96,30 @@ Item {
 
     readonly property bool running: strategy.running
 
+    readonly property string __styleState: __feedbackAnimationTimer.running ?
+                                           __feedbackAnimationTimer.feedbackValue : state
+
     PisakSoundEffect {
         id: __sound
         source: soundName ? pisak.resources.getSoundPath(soundName) : ""
+    }
+
+    Timer {
+        id: __feedbackTimeout
+        running: state === "active"
+        interval: activeFeedbackDuration
+        repeat: false
+        onTriggered: __afterSelect()
+        triggeredOnStart: false
+    }
+
+    Timer {
+        id: __feedbackAnimationTimer
+        running: __feedbackTimeout.running
+        repeat: true
+        interval: activeFeedbackBlinkInterval / 2
+        onTriggered: { feedbackValue = (feedbackValue === "active" ? "normal" : "active") }
+        property string feedbackValue: "normal"
     }
 
     onElementsChanged: {
@@ -121,7 +146,6 @@ Item {
     }
 
     function startScanning() {
-        state = "active"
         strategy.startCycle()
     }
 
@@ -141,7 +165,8 @@ Item {
     }
 
     function select() {
-        startScanning()
+        state = "active"
+        __doSelect()
     }
 
     function unwind(levels) {
@@ -158,4 +183,8 @@ Item {
     function onSubgroupUnwind() {
         startScanning()
     }
+
+    function __afterSelect() { startScanning() }
+
+    function __doSelect() {}
 }

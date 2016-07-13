@@ -31,20 +31,9 @@ PisakScanningGroup {
     */
     property string styleClass: "button"
 
-    /*!
-        \qmlmethod void PisakButton::select()
+    function __doSelect() { clicked() }
 
-        Selects the button - emits the \c clicked signal.
-    */
-    function select() {
-        state = "active"
-        clicked()
-        __afterSelect()
-    }
-
-    function __afterSelect() {
-        unwind(2)
-    }
+    function __afterSelect() { unwind(2) }
 
     Button {
         id: __button
@@ -64,7 +53,7 @@ PisakScanningGroup {
             }
         }
 
-        readonly property var __styleSpec: PisakStyle.skin[parent.styleClass][parent.state]
+        readonly property var __styleSpec: PisakStyle.skin[parent.styleClass][parent.__styleState]
 
         onClicked: parent.clicked()
     }
