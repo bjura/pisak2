@@ -13,12 +13,12 @@ ColumnLayout {
 
     readonly property PisakScanningGroup mainScanningGroup: __mainScanningGroup
 
-    property var __defaultCharSet: [["q", "w", "e", "r", "t", "y", "u"],
+    property var defaultCharSet: [["q", "w", "e", "r", "t", "y", "u"],
                                     ["i", "o", "p", "a", "s", "d", "f"],
                                     ["g", "h", "j", "k", "l", "z", "x"],
                                     [".", " ", "c", "v", "b", "n", "m"]]
 
-    property var __currentCharSet: __defaultCharSet
+    property var __currentCharSet: defaultCharSet
 
     property var __keyboardModel: null
 
@@ -81,11 +81,11 @@ ColumnLayout {
     }
 
     function changeCharSet(newCharSet) {
-        if (newCharSet === __currentCharSet) { newCharSet = __defaultCharSet }
+        if (newCharSet === __currentCharSet) { newCharSet = defaultCharSet }
 
-        if (newCharSet === __defaultCharSet) {
+        if (newCharSet === defaultCharSet) {
             __mainScanningGroup.doInsteadOfUnwind = null
-        } else { __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(__defaultCharSet) } }
+        } else { __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(defaultCharSet) } }
         __currentCharSet = newCharSet
     }
 
@@ -98,12 +98,12 @@ ColumnLayout {
     function __onBackToMainGroup() {
         if (__backToDefaultCharSetScheduled) {
             __backToDefaultCharSetScheduled = false
-            changeCharSet(__defaultCharSet)
+            changeCharSet(defaultCharSet)
         }
     }
 
     function __selectKey(key) {
         textArea.typeText(key.text)
-        if (__currentCharSet !== __defaultCharSet) { __backToDefaultCharSetScheduled = true }
+        if (__currentCharSet !== defaultCharSet) { __backToDefaultCharSetScheduled = true }
     }
 }
