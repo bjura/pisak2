@@ -84,12 +84,12 @@ ColumnLayout {
 
     function setCharSet(newCharSet) {
         __uppercase = false
-        if (newCharSet === __currentCharSet) { newCharSet = defaultCharSet }
+        if (newCharSet === __currentCharSet) { newCharSet = null }
 
         if (newCharSet === defaultCharSet) {
             __mainScanningGroup.doInsteadOfUnwind = null
         } else { __mainScanningGroup.doInsteadOfUnwind = function() { setDefaultCharSet() } }
-        __currentCharSet = newCharSet
+        __currentCharSet = newCharSet || defaultCharSet
     }
 
     function setDefaultCharSet() {
