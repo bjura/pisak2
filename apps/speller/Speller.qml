@@ -150,16 +150,14 @@ PisakMainWindow {
                     SpellerSquareButton {
                         id: buttonUppercaseChars
                         text: qsTr("DUŻE LITERY")
-                        property var charSet: keyboard.defaultCharSet.map(function(row) {
-                            return row.map(function(x){ return x.toUpperCase() }) })
-                        onClicked: keyboard.changeCharSet(charSet)
+                        onClicked: keyboard.setUpperCase()
                     }
 
                     SpellerSquareButton {
                         id: buttonPolishChars
                         text: qsTr("POLSKIE ZNAKI")
                         property var charSet: [["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ź", "ż"]]
-                        onClicked: keyboard.changeCharSet(charSet)
+                        onClicked: keyboard.setCharSet(charSet)
                     }
 
                     SpellerSquareButton {
@@ -169,7 +167,7 @@ PisakMainWindow {
                                                [",", "!", "?", "~", "@", "'", ":", "[", "]"],
                                                [";", "-","+", "=", "_","/", ">", "<", "^"],
                                                ["(", ")", "&", "*","%", "$", "#"]]
-                        onClicked: keyboard.changeCharSet(charSet)
+                        onClicked: keyboard.setCharSet(charSet)
                     }
 
                     SpellerSquareButton {

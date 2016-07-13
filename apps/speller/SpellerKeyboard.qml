@@ -30,6 +30,8 @@ ColumnLayout {
 
     property bool __backToDefaultCharSetScheduled: false
 
+    property bool __uppercase: false
+
     PisakScanningGroup {
         id: __mainScanningGroup
         onUnwindedFromSubgroup: __onBackToMainGroup()
@@ -80,25 +82,34 @@ ColumnLayout {
         __mainScanningGroup.elements = __scanningGroups
     }
 
-    function changeCharSet(newCharSet) {
+    function setCharSet(newCharSet) {
+        __uppercase = false
         if (newCharSet === __currentCharSet) { newCharSet = defaultCharSet }
 
         if (newCharSet === defaultCharSet) {
             __mainScanningGroup.doInsteadOfUnwind = null
-        } else { __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(defaultCharSet) } }
+        } else { __mainScanningGroup.doInsteadOfUnwind = function() { setDefaultCharSet() } }
         __currentCharSet = newCharSet
     }
 
-    function upperCase() {}
+    function setDefaultCharSet() {
+        setCharSet(defaultCharSet)
+    }
 
-    function lowerCase() {}
-
-    function altGr() {}
+    function setUpperCase() {
+        if (!__uppercase) {
+            setCharSet(__currentCharSet.map(function(row) {
+                return row.map(function(x){ return x.toUpperCase() }) }))
+            __uppercase = true
+        } else {
+            setDefaultCharSet()
+        }
+    }
 
     function __onBackToMainGroup() {
         if (__backToDefaultCharSetScheduled) {
             __backToDefaultCharSetScheduled = false
-            changeCharSet(defaultCharSet)
+            setDefaultCharSet()
         }
     }
 
