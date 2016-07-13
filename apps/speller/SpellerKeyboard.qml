@@ -81,6 +81,7 @@ ColumnLayout {
     function changeCharSet(newCharSet) {
         if (newCharSet === __currentCharSet) {
             newCharSet = __defaultCharSet
+            __mainScanningGroup.doInsteadOfUnwind = null
         } else {
             __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(__defaultCharSet) }
         }
