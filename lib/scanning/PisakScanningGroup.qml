@@ -15,6 +15,8 @@ Item {
 
     signal activeGroupChanged(var group)
 
+    signal unwindedFromSubgroup()
+
     state: "normal"
 
     states: [
@@ -164,6 +166,7 @@ Item {
     }
 
     function onSubgroupUnwind() {
+        unwindedFromSubgroup()
         startScanning()
     }
 }

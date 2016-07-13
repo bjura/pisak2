@@ -28,11 +28,11 @@ ColumnLayout {
 
     property var __rows: new Array(0)
 
-    on__CurrentCharSetChanged: {
-        __scanningGroups = new Array(0)
-        __rows = new Array(0)
-        __keyboardModel = __currentCharSet
-        __mainScanningGroup.elements = __scanningGroups
+    property bool __backToDefaultCharSetScheduled: false
+
+    PisakScanningGroup {
+        id: __mainScanningGroup
+        onUnwindedFromSubgroup: __onBackToMainGroup()
     }
 
     Repeater {
@@ -50,8 +50,7 @@ ColumnLayout {
                 SpellerKey {
                     id: key
                     text: modelData
-
-                    onClicked: keyboard.textArea.typeText(text)
+                    onClicked: { keyboard.__selectKey(key) }
                 }
             }
 
@@ -70,21 +69,23 @@ ColumnLayout {
         }
     }
 
-    PisakScanningGroup {
-        id: __mainScanningGroup
-    }
-
     Component.onCompleted: {
         __mainScanningGroup.elements = __scanningGroups
     }
 
+    on__CurrentCharSetChanged: {
+        __scanningGroups = new Array(0)
+        __rows = new Array(0)
+        __keyboardModel = __currentCharSet
+        __mainScanningGroup.elements = __scanningGroups
+    }
+
     function changeCharSet(newCharSet) {
-        if (newCharSet === __currentCharSet) {
-            newCharSet = __defaultCharSet
+        if (newCharSet === __currentCharSet) { newCharSet = __defaultCharSet }
+
+        if (newCharSet === __defaultCharSet) {
             __mainScanningGroup.doInsteadOfUnwind = null
-        } else {
-            __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(__defaultCharSet) }
-        }
+        } else { __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(__defaultCharSet) } }
         __currentCharSet = newCharSet
     }
 
@@ -93,4 +94,16 @@ ColumnLayout {
     function lowerCase() {}
 
     function altGr() {}
+
+    function __onBackToMainGroup() {
+        if (__backToDefaultCharSetScheduled) {
+            __backToDefaultCharSetScheduled = false
+            changeCharSet(__defaultCharSet)
+        }
+    }
+
+    function __selectKey(key) {
+        textArea.typeText(key.text)
+        if (__currentCharSet !== __defaultCharSet) { __backToDefaultCharSetScheduled = true }
+    }
 }
