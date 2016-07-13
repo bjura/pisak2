@@ -155,7 +155,8 @@ PisakMainWindow {
                     SpellerSquareButton {
                         id: buttonPolishChars
                         text: qsTr("POLSKIE ZNAKI")
-                        state: "disabled"
+                        property var charSet: [["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ź", "ż"]]
+                        onClicked: keyboard.changeCharSet(charSet)
                     }
 
                     SpellerSquareButton {

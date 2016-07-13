@@ -11,25 +11,32 @@ ColumnLayout {
 
     property PisakScanningGroup menuGroup: null
 
-    property string charSet: "default"
-
-    property var charSets: {"default": [["q", "w", "e", "r", "t", "y", "u"],
-                                        ["i", "o", "p", "a", "s", "d", "f"],
-                                        ["g", "h", "j", "k", "l", "z", "x"],
-                                        [".", " ", "c", "v", "b", "n", "m"]]}
-
-    readonly property int rows: __currentCharSet.length
-
     readonly property PisakScanningGroup mainScanningGroup: __mainScanningGroup
 
-    readonly property var __currentCharSet: charSets[charSet]
+    property var __defaultCharSet: [["q", "w", "e", "r", "t", "y", "u"],
+                                    ["i", "o", "p", "a", "s", "d", "f"],
+                                    ["g", "h", "j", "k", "l", "z", "x"],
+                                    [".", " ", "c", "v", "b", "n", "m"]]
+
+    property var __currentCharSet: __defaultCharSet
+
+    property var __keyboardModel: null
+
+    readonly property int rows: __currentCharSet.length
 
     property var __scanningGroups: new Array(0)
 
     property var __rows: new Array(0)
 
+    on__CurrentCharSetChanged: {
+        __scanningGroups = new Array(0)
+        __rows = new Array(0)
+        __keyboardModel = __currentCharSet
+        __mainScanningGroup.elements = __scanningGroups
+    }
+
     Repeater {
-        model: rows
+        model: __keyboardModel
 
         RowLayout {
             id: row
@@ -38,11 +45,11 @@ ColumnLayout {
             property int rowIndex: index
 
             Repeater {
-                model: __currentCharSet[rowIndex].length
+                model: modelData
 
                 SpellerKey {
                     id: key
-                    text: keyboard.__currentCharSet[rowIndex][index]
+                    text: modelData
 
                     onClicked: keyboard.textArea.typeText(text)
                 }
@@ -71,15 +78,13 @@ ColumnLayout {
         __mainScanningGroup.elements = __scanningGroups
     }
 
-    onCharSetChanged: {
-        // static keyboard layout
-        for(var rowIdx = 0; rowIdx < __rows.length; rowIdx++) {
-            for(var colIdx = 0; colIdx < __rows[rowIdx].length; colIdx++) {
-                if (rowIdx < __currentCharSet.length && colIdx < __currentCharSet[rowIdx].length) {
-                    __rows[rowIdx][colIdx].text = __currentCharSet[rowIdx][colIdx]
-                }
-            }
+    function changeCharSet(newCharSet) {
+        if (newCharSet === __currentCharSet) {
+            newCharSet = __defaultCharSet
+        } else {
+            __mainScanningGroup.doInsteadOfUnwind = function() { changeCharSet(__defaultCharSet) }
         }
+        __currentCharSet = newCharSet
     }
 
     function upperCase() {}

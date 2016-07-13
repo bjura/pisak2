@@ -43,6 +43,8 @@ Item {
 
     property int validElementCount: validElements.length
 
+    property var doInsteadOfUnwind: null
+
     /*!
         \qmlproperty string PisakScanningGroup::soundName
 
@@ -145,12 +147,18 @@ Item {
     }
 
     function unwind(levels) {
-        if (parentScanningGroup !== null) {
-            if (levels > 1) {
-                parentScanningGroup.unwind(levels-1)
-            } else {
-                activeGroupChanged(parentScanningGroup)
-                parentScanningGroup.onSubgroupUnwind()
+        if (doInsteadOfUnwind !== null ) {
+            doInsteadOfUnwind()
+            doInsteadOfUnwind = null
+            startScanning()
+        } else {
+            if (parentScanningGroup !== null) {
+                if (levels > 1) {
+                    parentScanningGroup.unwind(levels-1)
+                } else {
+                    activeGroupChanged(parentScanningGroup)
+                    parentScanningGroup.onSubgroupUnwind()
+                }
             }
         }
     }
