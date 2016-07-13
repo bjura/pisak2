@@ -156,7 +156,10 @@ PisakMainWindow {
                     SpellerSquareButton {
                         id: buttonPolishChars
                         text: qsTr("POLSKIE ZNAKI")
-                        property var charSet: [["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ź", "ż"]]
+                        property var charSet: [["q", "w", "ę", "r", "t", "y", "u"],
+                                               ["i", "ó", "p", "ą", "ś", "d", "f"],
+                                               ["g", "h", "j", "k", "ł", "ż", "ź"],
+                                               [".", " ", "ć", "v", "b", "ń", "m"]]
                         onClicked: keyboard.setCharSet(charSet)
                     }
 
