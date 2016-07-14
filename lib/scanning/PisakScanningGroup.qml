@@ -45,7 +45,7 @@ Item {
 
     property int validElementCount: validElements.length
 
-    property var doInsteadOfUnwind: null
+    property var unwind: __unwind
 
     /*!
         \qmlproperty string PisakScanningGroup::soundName
@@ -148,25 +148,19 @@ Item {
         startScanning()
     }
 
-    function unwind(levels) {
-        if (doInsteadOfUnwind !== null ) {
-            doInsteadOfUnwind()
-            doInsteadOfUnwind = null
-            startScanning()
-        } else {
-            if (parentScanningGroup !== null) {
-                if (levels > 1) {
-                    parentScanningGroup.unwind(levels-1)
-                } else {
-                    activeGroupChanged(parentScanningGroup)
-                    parentScanningGroup.onSubgroupUnwind()
-                }
-            }
-        }
-    }
-
     function onSubgroupUnwind() {
         unwindedFromSubgroup()
         startScanning()
+    }
+
+    function __unwind(levels) {
+        if (parentScanningGroup !== null) {
+            if (levels > 1) {
+                parentScanningGroup.unwind(levels-1)
+            } else {
+                activeGroupChanged(parentScanningGroup)
+                parentScanningGroup.onSubgroupUnwind()
+            }
+        }
     }
 }
