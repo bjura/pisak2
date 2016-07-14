@@ -96,30 +96,43 @@ Item {
 
     readonly property bool running: strategy.running
 
-    readonly property string __styleState: __feedbackAnimationTimer.running ?
-                                           __feedbackAnimationTimer.feedbackValue : state
+    readonly property string __styleState: __styleAnimators.running ?
+                                           __styleAnimators.value : state
+
+    Item {
+        id: __styleAnimators
+
+        property string value: "normal"
+
+        property bool running: false
+
+        SequentialAnimation {
+            id: activeFeedbackAnimation
+            running: state === "active"
+            loops: activeFeedbackDuration / activeFeedbackBlinkInterval
+
+            PropertyAnimation {
+                target: __styleAnimators; property: "value"
+                from: "activeBlinkOff"; to: "activeBlinkOn"
+                duration: activeFeedbackBlinkInterval / 2
+            }
+
+            PropertyAnimation {
+                target: __styleAnimators; property: "value"
+                from: "activeBlinkOn"; to: "activeBlinkOff"
+                duration: activeFeedbackBlinkInterval / 2
+            }
+
+            onRunningChanged: {
+                __styleAnimators.running = running
+                if (!running) { __afterSelect() }
+            }
+        }
+    }
 
     PisakSoundEffect {
         id: __sound
         source: soundName ? pisak.resources.getSoundPath(soundName) : ""
-    }
-
-    Timer {
-        id: __feedbackTimeout
-        running: state === "active"
-        interval: activeFeedbackDuration
-        repeat: false
-        onTriggered: __afterSelect()
-        triggeredOnStart: false
-    }
-
-    Timer {
-        id: __feedbackAnimationTimer
-        running: __feedbackTimeout.running
-        repeat: true
-        interval: activeFeedbackBlinkInterval / 2
-        onTriggered: { feedbackValue = (feedbackValue === "active" ? "normal" : "active") }
-        property string feedbackValue: "normal"
     }
 
     onElementsChanged: {
@@ -171,10 +184,10 @@ Item {
 
     function unwind(levels) {
         if (parentScanningGroup !== null) {
+            activeGroupChanged(parentScanningGroup)
             if (levels > 1) {
                 parentScanningGroup.unwind(levels-1)
             } else {
-                activeGroupChanged(parentScanningGroup)
                 parentScanningGroup.onSubgroupUnwind()
             }
         }
