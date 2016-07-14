@@ -60,8 +60,6 @@ ColumnLayout {
             id: row
             Layout.alignment: Qt.AlignHCenter
 
-            property int rowIndex: index
-
             Repeater {
                 model: modelData
 
