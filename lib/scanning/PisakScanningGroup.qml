@@ -15,6 +15,8 @@ Item {
 
     signal activeGroupChanged(var group)
 
+    signal unwindedFromSubgroup()
+
     state: "normal"
 
     states: [
@@ -46,6 +48,8 @@ Item {
     property int activeDuration: 1000
 
     property alias __activeAnimationRunning: __activeAnimation.running
+
+    property var doInsteadOfUnwind: null
 
     /*!
         \qmlproperty string PisakScanningGroup::soundName
@@ -159,17 +163,24 @@ Item {
     }
 
     function unwind(levels) {
-        if (parentScanningGroup !== null) {
-            activeGroupChanged(parentScanningGroup)
-            if (levels > 1) {
-                parentScanningGroup.unwind(levels-1)
-            } else {
-                parentScanningGroup.onSubgroupUnwind()
+        if (doInsteadOfUnwind !== null ) {
+            doInsteadOfUnwind()
+            doInsteadOfUnwind = null
+            startScanning()
+        } else {
+            if (parentScanningGroup !== null) {
+                activeGroupChanged(parentScanningGroup)
+                if (levels > 1) {
+                    parentScanningGroup.unwind(levels-1)
+                } else {
+                    parentScanningGroup.onSubgroupUnwind()
+                }
             }
         }
     }
 
     function onSubgroupUnwind() {
+        unwindedFromSubgroup()
         startScanning()
     }
 
