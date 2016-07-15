@@ -28,13 +28,29 @@ ColumnLayout {
 
     property var __rows: new Array(0)
 
-    property bool __backToDefaultCharSetScheduled: false
-
     property bool __uppercase: false
+
+    property bool __backToDefaultCharSetOnKeySelected: false
+    property bool __backToDefaultCharSetOnUnwind: false
 
     PisakScanningGroup {
         id: __mainScanningGroup
-        onUnwindedFromSubgroup: __onBackToMainGroup()
+        unwind: __keyboardUnwind
+
+        onUnwindedFromSubgroup: {
+            if (__backToDefaultCharSetOnKeySelected) {
+                __backToDefaultCharSetOnKeySelected = false
+                setDefaultCharSet()
+            }
+        }
+
+        function __keyboardUnwind(levels) {
+            if (__backToDefaultCharSetOnUnwind) {
+                __backToDefaultCharSetOnUnwind = false
+                setDefaultCharSet()
+                startScanning()
+            } else { __unwind(levels) }
+        }
     }
 
     Repeater {
@@ -43,8 +59,6 @@ ColumnLayout {
         RowLayout {
             id: row
             Layout.alignment: Qt.AlignHCenter
-
-            property int rowIndex: index
 
             Repeater {
                 model: modelData
@@ -85,10 +99,7 @@ ColumnLayout {
     function setCharSet(newCharSet) {
         __uppercase = false
         if (newCharSet === __currentCharSet) { newCharSet = null }
-
-        if (newCharSet === defaultCharSet) {
-            __mainScanningGroup.doInsteadOfUnwind = null
-        } else { __mainScanningGroup.doInsteadOfUnwind = function() { setDefaultCharSet() } }
+        __backToDefaultCharSetOnUnwind = newCharSet !== defaultCharSet
         __currentCharSet = newCharSet || defaultCharSet
     }
 
@@ -106,15 +117,8 @@ ColumnLayout {
         }
     }
 
-    function __onBackToMainGroup() {
-        if (__backToDefaultCharSetScheduled) {
-            __backToDefaultCharSetScheduled = false
-            setDefaultCharSet()
-        }
-    }
-
     function __selectKey(key) {
         textArea.typeText(key.text)
-        if (__currentCharSet !== defaultCharSet) { __backToDefaultCharSetScheduled = true }
+        if (__currentCharSet !== defaultCharSet) { __backToDefaultCharSetOnKeySelected = true }
     }
 }

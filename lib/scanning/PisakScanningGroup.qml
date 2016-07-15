@@ -37,19 +37,13 @@ Item {
         }
     ]
 
-    property string __state: ((parentScanningGroup !== null) ? parentScanningGroup.state : "normal") || "normal"
-
-    on__StateChanged: { if (__state !== "active" && state !== "disabled") { state = __state } }
-
     property var validElements: new Array(0)
 
     property int validElementCount: validElements.length
 
     property int activeDuration: 1000
 
-    property alias __activeAnimationRunning: __activeAnimation.running
-
-    property var doInsteadOfUnwind: null
+    property var unwind: __unwind
 
     /*!
         \qmlproperty string PisakScanningGroup::soundName
@@ -100,6 +94,10 @@ Item {
 
     readonly property bool running: strategy.running
 
+    property alias __activeAnimationRunning: __activeAnimation.running
+
+    property string __state: ((parentScanningGroup !== null) ? parentScanningGroup.state : "normal") || "normal"
+
     PauseAnimation {
         id: __activeAnimation
         duration: activeDuration
@@ -128,6 +126,8 @@ Item {
             validElements = newElements
         }
     }
+
+    on__StateChanged: { if (__state !== "active" && state !== "disabled") { state = __state } }
 
     /*!
         \qmlmethod void PisakScanningSound::playSound()
@@ -162,23 +162,6 @@ Item {
         __doSelect()
     }
 
-    function unwind(levels) {
-        if (doInsteadOfUnwind !== null ) {
-            doInsteadOfUnwind()
-            doInsteadOfUnwind = null
-            startScanning()
-        } else {
-            if (parentScanningGroup !== null) {
-                activeGroupChanged(parentScanningGroup)
-                if (levels > 1) {
-                    parentScanningGroup.unwind(levels-1)
-                } else {
-                    parentScanningGroup.onSubgroupUnwind()
-                }
-            }
-        }
-    }
-
     function onSubgroupUnwind() {
         unwindedFromSubgroup()
         startScanning()
@@ -187,4 +170,15 @@ Item {
     function __afterSelect() { startScanning() }
 
     function __doSelect() {}
+
+    function __unwind(levels) {
+        if (parentScanningGroup !== null) {
+            activeGroupChanged(parentScanningGroup)
+            if (levels > 1) {
+                parentScanningGroup.unwind(levels-1)
+            } else {
+                parentScanningGroup.onSubgroupUnwind()
+            }
+        }
+    }
 }
