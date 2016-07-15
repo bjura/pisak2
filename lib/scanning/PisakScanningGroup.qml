@@ -43,9 +43,9 @@ Item {
 
     property int validElementCount: validElements.length
 
-    property int activeFeedbackDuration: 1000
+    property int activeDuration: 1000
 
-    property int activeFeedbackBlinkInterval: 200
+    property alias __activeAnimationRunning: __activeAnimation.running
 
     /*!
         \qmlproperty string PisakScanningGroup::soundName
@@ -96,37 +96,13 @@ Item {
 
     readonly property bool running: strategy.running
 
-    readonly property string __styleState: __styleAnimators.running ?
-                                           __styleAnimators.value : state
+    PauseAnimation {
+        id: __activeAnimation
+        duration: activeDuration
+        running: state === "active"
 
-    Item {
-        id: __styleAnimators
-
-        property string value: "normal"
-
-        property bool running: false
-
-        SequentialAnimation {
-            id: activeFeedbackAnimation
-            running: state === "active"
-            loops: activeFeedbackDuration / activeFeedbackBlinkInterval
-
-            PropertyAnimation {
-                target: __styleAnimators; property: "value"
-                from: "activeBlinkOff"; to: "activeBlinkOn"
-                duration: activeFeedbackBlinkInterval / 2
-            }
-
-            PropertyAnimation {
-                target: __styleAnimators; property: "value"
-                from: "activeBlinkOn"; to: "activeBlinkOff"
-                duration: activeFeedbackBlinkInterval / 2
-            }
-
-            onRunningChanged: {
-                __styleAnimators.running = running
-                if (!running) { __afterSelect() }
-            }
+        onRunningChanged: {
+            if (!running) { __afterSelect() }
         }
     }
 
