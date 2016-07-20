@@ -13,10 +13,16 @@ ColumnLayout {
 
     readonly property PisakScanningGroup mainScanningGroup: __mainScanningGroup
 
-    property var defaultCharSet: [["q", "w", "e", "r", "t", "y", "u"],
-                                    ["i", "o", "p", "a", "s", "d", "f"],
-                                    ["g", "h", "j", "k", "l", "z", "x"],
-                                    [".", " ", "c", "v", "b", "n", "m"]]
+    readonly property var __polishCharsMap: [["a", "c", "e", "l", "n", "o", "s", "z", "x"],
+                                             ["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ż", "ź"]]
+
+    property var defaultCharSet: [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+                                  ["a", "s", "d", "f", "g", "h", "j", "k", "l",
+                                   {icon: "nav_up", text: "", onClicked: null, disabled: true}],
+                                  ["z", "x", "c", "v", "b", "n", "m",
+                                   {icon: "nav_left", text: "", onClicked: textArea.cursorBackward},
+                                   {icon: "nav_down", text: "", onClicked: null, disabled: true},
+                                   {icon: "nav_right", text: "",onClicked: textArea.cursorForward}]]
 
     property var __currentCharSet: defaultCharSet
 
@@ -29,6 +35,8 @@ ColumnLayout {
     property var __rows: new Array(0)
 
     property bool __uppercase: false
+
+    property bool __polishChars: false
 
     property bool __backToDefaultCharSetOnKeySelected: false
     property bool __backToDefaultCharSetOnUnwind: false
@@ -66,6 +74,7 @@ ColumnLayout {
                 SpellerKey {
                     id: key
                     text: modelData
+                    icon: ""
                     onClicked: { keyboard.__selectKey(key) }
                 }
             }
@@ -115,6 +124,10 @@ ColumnLayout {
         } else {
             setDefaultCharSet()
         }
+    }
+
+    function setPolishChars() {
+        if (!__polishChars) {} else {}
     }
 
     function __selectKey(key) {

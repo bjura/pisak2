@@ -59,6 +59,7 @@ PisakMainWindow {
                 SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToKeyboard
                     text: qsTr("LITERY")
+                    icon: "keyboard"
                     controller: scanningController
                     targetGroup: keyboard.mainScanningGroup
                 }
@@ -66,49 +67,57 @@ PisakMainWindow {
                 SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToPrediction
                     text: qsTr("PREDYKCJA")
+                    icon: "prediction"
                     controller: scanningController
                     targetGroup: predictionGroup
                 }
 
                 SpellerButton {
-                    id: buttonClearAll
-                    text: qsTr("WYCZYŚĆ")
-                    onClicked: textArea.clearAll()
-                }
-
-                SpellerButton {
                     id: buttonSave
                     text: qsTr("ZAPISZ")
+                    icon: "save"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonLoad
                     text: qsTr("WCZYTAJ")
+                    icon: "load"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonRead
                     text: qsTr("PRZECZYTAJ")
+                    icon: "lips"
                     state: "disabled"
+                }
+
+                SpellerButton {
+                    id: buttonClearAll
+                    text: qsTr("NOWY")
+                    icon: "doc"
+                    onClicked: textArea.clearAll()
                 }
 
                 SpellerButton {
                     id: buttonSend
                     text: qsTr("WYŚLIJ")
+                    icon: "send"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonPrint
                     text: qsTr("DRUKUJ")
+                    icon: "print"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonExit
                     text: qsTr("WYJŚCIE")
+                    icon: "exit"
                     onClicked: app.exitApp()
                 }
             }
@@ -142,82 +151,69 @@ PisakMainWindow {
 
                     SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToPrediction
-                        text: qsTr("PREDYKCJA")
+                        icon: "prediction"
                         controller: scanningController
                         targetGroup: predictionGroup
                     }
 
+                    SpellerKey {
+                        id: buttonSpace
+                        text: " "
+                        onClicked: textArea.typeText(text)
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonBackspace
+                        icon: "backspace"
+                        onClicked: textArea.backspace()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonUndo
+                        icon: "undo"
+                        onClicked: textArea.undo()
+                    }
+
+                    SpellerSquareButton {
+                        id: buttonSpecialChars
+                        icon: "face"
+                        property var charSet: [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+                                               [",", ".", ";", ":", "\"", "!", "\\", "&", "?",
+                                                {icon: "nav_up", text: "", onClicked: null, disabled: true}],
+                                               ["/", "*", "%", "@", "(", ")", "=",
+                                                {icon: "nav_left", text: "", onClicked: textArea.cursorBackward},
+                                                {icon: "nav_down", text: "", onClicked: null, disabled: true},
+                                                {icon: "nav_right", text: "", onClicked: textArea.cursorForward}]]
+                        onClicked: keyboard.setCharSet(charSet)
+                    }
+
                     SpellerSquareButton {
                         id: buttonUppercaseChars
-                        text: qsTr("DUŻE LITERY")
+                        icon: "uppercase"
                         onClicked: keyboard.setUpperCase()
                     }
 
                     SpellerSquareButton {
                         id: buttonPolishChars
-                        text: qsTr("POLSKIE ZNAKI")
-                        property var charSet: [["q", "w", "ę", "r", "t", "y", "u"],
-                                               ["i", "ó", "p", "ą", "ś", "d", "f"],
-                                               ["g", "h", "j", "k", "ł", "ż", "ź"],
-                                               [".", " ", "ć", "v", "b", "ń", "m"]]
-                        onClicked: keyboard.setCharSet(charSet)
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonSpecialChars
-                        text: qsTr("ZNAKI SPECJALNE")
-                        property var charSet: [["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                               [",", "!", "?", "~", "@", "'", ":", "[", "]"],
-                                               [";", "-","+", "=", "_","/", ">", "<", "^"],
-                                               ["(", ")", "&", "*","%", "$", "#"]]
-                        onClicked: keyboard.setCharSet(charSet)
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonBackspace
-                        text: qsTr("SKASUJ OSTATNI")
-                        onClicked: textArea.backspace()
+                        icon: "polish"
+                        onClicked: keyboard.setPolishChars()
                     }
 
                     SpellerSquareButton {
                         id: buttonNewLine
-                        text: qsTr("ENTER")
+                        icon: "enter"
                         onClicked: textArea.newLine()
                     }
 
-                    SpellerSquareButton {
-                        id: buttonUndo
-                        text: qsTr("COFNIJ")
-                        state: "disabled"
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonCursorForward
-                        text: qsTr("DO PRZODU")
-                        onClicked: textArea.cursorForward()
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonCursorBackward
-                        text: qsTr("DO TYŁU")
-                        onClicked: textArea.cursorBackward()
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonCursorUp
-                        text: qsTr("DO GÓRY")
-                        state: "disabled"
-                    }
-
-                    SpellerSquareButton {
-                        id: buttonCursorDown
-                        text: qsTr("W DÓŁ")
-                        state: "disabled"
+                    SpellerKey {
+                        id: buttonSZ
+                        text: "SZ"
+                        onClicked: textArea.typeText(text)
                     }
 
                     SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToMainMenu
-                        text: qsTr("NARZĘDZIA")
+                        icon: "tools"
                         controller: scanningController
                         targetGroup: mainMenuGroup
                     }

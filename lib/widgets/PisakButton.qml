@@ -22,6 +22,8 @@ PisakScanningGroup {
 
     property alias text: __button.text
 
+    property string icon: null
+
     /*!
         \qmlproperty string PisakButton::styleClass
 
@@ -40,6 +42,7 @@ PisakScanningGroup {
     Button {
         id: __button
         anchors.fill: parent
+        iconSource: icon ? pisak.resources.getIconPath(icon) : ""
 
         style: ButtonStyle {
             label: PisakLabel {
@@ -47,6 +50,7 @@ PisakScanningGroup {
                 color: control.__styleSpec.foreground
                 font.family: control.__styleSpec.fontFamily
             }
+
             background: PisakRectangle {
                 color: control.__styleSpec.background
                 radius: control.__styleSpec.radius
@@ -73,6 +77,7 @@ PisakScanningGroup {
                     }
                 }
             }
+
         }
 
         readonly property var __style: PisakStyle.skin[parent.styleClass]
