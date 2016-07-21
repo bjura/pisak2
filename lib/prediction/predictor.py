@@ -26,7 +26,7 @@ class Predictor(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._feed = ''
-        self._predictions = []
+        self._predictions = ''
         self._worker = None
 
     @pyqtProperty(str)
@@ -36,7 +36,7 @@ class Predictor(QObject):
     @predictions.setter
     def predictions(self, value):
         self._predictions = value
-        self.predictionsChanged.emit(self.predictions)
+        self.predictionsChanged.emit(value)
 
     @pyqtProperty(str)
     def feed(self):
