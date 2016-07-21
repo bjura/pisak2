@@ -35,6 +35,8 @@ class Application:
         self._app.setOrganizationName(self.organization)
         self._app.setApplicationName(self.name)
 
+        self._registerTypes()
+
         self._context = _ApplicationContext()
 
         self._engine = QQmlApplicationEngine()
@@ -43,3 +45,7 @@ class Application:
 
     def run(self):
         sys.exit(self._app.exec_())
+
+    def _registerTypes():
+        import prediction
+        prediction.registerTypes()
