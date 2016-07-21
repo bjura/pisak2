@@ -17,7 +17,6 @@ class _PredictorThread(QThread):
 
     def run(self):
         self.output.emit(engine.getPredictions(self._feed))
-        self.terminate()
 
 
 class Predictor(QObject):
@@ -32,6 +31,10 @@ class Predictor(QObject):
     def predictions(self):
         return self._predictions
 
+    @predictions.setter
+    def predictions(self, value):
+        self._predictions = value
+
     @pyqtProperty(str):
     def feed(self):
         return self._feed
@@ -39,9 +42,11 @@ class Predictor(QObject):
     @feed.setter
     def feed(self, value):
         self._feed = value
+        if self._worker is not None:
+            self._worker.output.disconnect(self._onNewPredictions)
         self._worker = _PredictorThread(value)
         self._worker.output.connect(self._onNewPredictions)
         self._worker.start()
 
     def _onNewPredictions(self, predictions):
-        self._predictions = predictions
+        self.predictions = predictions
