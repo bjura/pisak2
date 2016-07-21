@@ -121,7 +121,7 @@ ColumnLayout {
     function setUpperCase() {
         if (!__uppercase) {
             setCharSet(__currentCharSet.map(function(row) {
-                return row.map(function(x){ return x.toUpperCase() }) }))
+                return row.map(function(x){ return x instanceof Object ? x : x.toUpperCase() }) }))
             __uppercase = true
         } else {
             setDefaultCharSet()
