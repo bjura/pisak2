@@ -34,6 +34,8 @@ PisakScanningGroup {
 
     property int activeBlinkInterval: 200
 
+    function onInputEvent() {}
+
     function __doSelect() { clicked() }
 
     function __afterSelect() { unwind(2) }

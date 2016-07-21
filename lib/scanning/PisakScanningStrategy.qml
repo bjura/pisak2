@@ -30,7 +30,7 @@ Item {
 
         \sa groupExhausted
     */
-    property int maxCycleCount: 2
+    property int maxCycleCount: 3
 
     /*!
         \qmlproperty int PisakScanningStrategy::interval
@@ -163,6 +163,7 @@ Item {
         group.state = "normal"
         __currentElementIdx = -1
         __cycleIdx = 0
+        __currentElement = null
     }
 
     /*!
