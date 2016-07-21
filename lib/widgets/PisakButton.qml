@@ -59,14 +59,14 @@ PisakScanningGroup {
             readonly property var __style: __button.__style["active"].feedbackAnimation
 
             ColorAnimation {
-                from: __animation.__style.colorFrom
-                to: __animation.__style.colorTo
+                from: __animation.__style.backgroundFrom
+                to: __animation.__style.backgroundTo
                 duration: button.activeBlinkInterval / 2
             }
 
             ColorAnimation {
-                from: __animation.__style.colorTo
-                to: __animation.__style.colorFrom
+                from: __animation.__style.backgroundTo
+                to: __animation.__style.backgroundFrom
                 duration: button.activeBlinkInterval / 2
             }
         }
