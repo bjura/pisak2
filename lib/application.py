@@ -46,6 +46,6 @@ class Application:
     def run(self):
         sys.exit(self._app.exec_())
 
-    def _registerTypes():
-        import prediction
-        prediction.registerTypes()
+    def _registerTypes(self):
+        from .prediction import predictor
+        predictor.registerTypes()

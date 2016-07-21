@@ -6,36 +6,39 @@ import engine
 
 class _PredictorThread(QThread):
 
-    output = pyqtSignal(list)
+    output = pyqtSignal(str)
 
     def __init__(self, feed):
-        super.__init__()
+        super().__init__()
         self._feed = feed
 
     def __del__(self):
         self.wait()
 
     def run(self):
-        self.output.emit(engine.getPredictions(self._feed))
+        self.output.emit(','.join(engine.getPredictions(self._feed)))
 
 
 class Predictor(QObject):
 
+    predictionsChanged = pyqtSignal(str)
+
     def __init__(self, parent=None):
-        super.__init__(self, parent)
+        super().__init__(parent)
         self._feed = ''
         self._predictions = []
         self._worker = None
 
-    @pyqtProperty(list)
+    @pyqtProperty(str)
     def predictions(self):
         return self._predictions
 
     @predictions.setter
     def predictions(self, value):
         self._predictions = value
+        self.predictionsChanged.emit(self.predictions)
 
-    @pyqtProperty(str):
+    @pyqtProperty(str)
     def feed(self):
         return self._feed
 
@@ -50,3 +53,7 @@ class Predictor(QObject):
 
     def _onNewPredictions(self, predictions):
         self.predictions = predictions
+
+
+def registerTypes():
+    qmlRegisterType(Predictor, 'Pisak', 1, 0, 'PisakPredictor')
