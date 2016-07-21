@@ -53,22 +53,59 @@ PisakScanningGroup {
         border.color: __styleSpec.border
         border.width: __styleSpec.borderWidth
 
+        readonly property var __animationStyle: __style["active"].feedbackAnimation
+
         SequentialAnimation on color {
-            id: __animation
             loops: Animation.Infinite
             running: button.__activeAnimationRunning
 
-            readonly property var __style: __button.__style["active"].feedbackAnimation
-
             ColorAnimation {
-                from: __animation.__style.backgroundFrom
-                to: __animation.__style.backgroundTo
+                from: __button.__animationStyle.backgroundFrom
+                to: __button.__animationStyle.backgroundTo
                 duration: button.activeBlinkInterval / 2
             }
 
             ColorAnimation {
-                from: __animation.__style.backgroundTo
-                to: __animation.__style.backgroundFrom
+                from: __button.__animationStyle.backgroundTo
+                to: __button.__animationStyle.backgroundFrom
+                duration: button.activeBlinkInterval / 2
+            }
+        }
+
+        SequentialAnimation on border.color {
+            loops: Animation.Infinite
+            running: button.__activeAnimationRunning
+
+            ColorAnimation {
+                from: __button.__animationStyle.borderFrom
+                to: __button.__animationStyle.borderTo
+                duration: button.activeBlinkInterval / 2
+            }
+
+            ColorAnimation {
+                from: __button.__animationStyle.borderTo
+                to: __button.__animationStyle.borderFrom
+                duration: button.activeBlinkInterval / 2
+            }
+        }
+
+        SequentialAnimation {
+            loops: Animation.Infinite
+            running: button.__activeAnimationRunning
+
+            PropertyAnimation {
+                targets: [label, iconOverlay]
+                property: "color"
+                from: __button.__animationStyle.foregroundFrom
+                to: __button.__animationStyle.foregroundTo
+                duration: button.activeBlinkInterval / 2
+            }
+
+            PropertyAnimation {
+                targets: [label, iconOverlay]
+                property: "color"
+                from: __button.__animationStyle.foregroundTo
+                to: __button.__animationStyle.foregroundFrom
                 duration: button.activeBlinkInterval / 2
             }
         }
@@ -104,6 +141,7 @@ PisakScanningGroup {
                 visible: !(button.iconName === "")
 
                 ColorOverlay {
+                    id: iconOverlay
                     anchors.fill: icon
                     source: icon
                     color:  __button.__styleSpec.foreground
