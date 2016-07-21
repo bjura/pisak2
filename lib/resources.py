@@ -11,7 +11,7 @@ class Resources(QObject):
 
     soundFileExt = '.wav'
 
-    iconFileExt  = '.jpg'
+    iconFileExt  = '.svg'
 
     @pyqtSlot(str, result=str)
     def getSoundPath(self, soundName):

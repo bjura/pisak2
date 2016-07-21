@@ -59,7 +59,7 @@ PisakMainWindow {
                 SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToKeyboard
                     text: qsTr("LITERY")
-                    icon: "keyboard"
+                    iconName: "keyboard"
                     controller: scanningController
                     targetGroup: keyboard.mainScanningGroup
                 }
@@ -67,7 +67,7 @@ PisakMainWindow {
                 SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToPrediction
                     text: qsTr("PREDYKCJA")
-                    icon: "prediction"
+                    iconName: "prediction"
                     controller: scanningController
                     targetGroup: predictionGroup
                 }
@@ -75,49 +75,49 @@ PisakMainWindow {
                 SpellerButton {
                     id: buttonSave
                     text: qsTr("ZAPISZ")
-                    icon: "save"
+                    iconName: "save"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonLoad
                     text: qsTr("WCZYTAJ")
-                    icon: "load"
+                    iconName: "load"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonRead
                     text: qsTr("PRZECZYTAJ")
-                    icon: "lips"
+                    iconName: "lips"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonClearAll
                     text: qsTr("NOWY")
-                    icon: "doc"
+                    iconName: "doc"
                     onClicked: textArea.clearAll()
                 }
 
                 SpellerButton {
                     id: buttonSend
                     text: qsTr("WYŚLIJ")
-                    icon: "send"
+                    iconName: "send"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonPrint
                     text: qsTr("DRUKUJ")
-                    icon: "print"
+                    iconName: "print"
                     state: "disabled"
                 }
 
                 SpellerButton {
                     id: buttonExit
                     text: qsTr("WYJŚCIE")
-                    icon: "exit"
+                    iconName: "exit"
                     onClicked: app.exitApp()
                 }
             }
@@ -151,57 +151,57 @@ PisakMainWindow {
 
                     SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToPrediction
-                        icon: "prediction"
+                        iconName: "prediction"
                         controller: scanningController
                         targetGroup: predictionGroup
                     }
 
                     SpellerKey {
                         id: buttonSpace
-                        text: " "
-                        onClicked: textArea.typeText(text)
+                        iconName: "space"
+                        onClicked: textArea.typeText(" ")
                     }
 
                     SpellerSquareButton {
                         id: buttonBackspace
-                        icon: "backspace"
+                        iconName: "backspace"
                         onClicked: textArea.backspace()
                     }
 
                     SpellerSquareButton {
                         id: buttonUndo
-                        icon: "undo"
+                        iconName: "undo"
                         onClicked: textArea.undo()
                     }
 
                     SpellerSquareButton {
                         id: buttonSpecialChars
-                        icon: "face"
+                        iconName: "face"
                         property var charSet: [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
                                                [",", ".", ";", ":", "\"", "!", "\\", "&", "?",
-                                                {icon: "nav_up", text: "", onClicked: null, disabled: true}],
+                                                {iconName: "nav_up", text: "", onClicked: null, disabled: true}],
                                                ["/", "*", "%", "@", "(", ")", "=",
-                                                {icon: "nav_left", text: "", onClicked: textArea.cursorBackward},
-                                                {icon: "nav_down", text: "", onClicked: null, disabled: true},
-                                                {icon: "nav_right", text: "", onClicked: textArea.cursorForward}]]
+                                                {iconName: "nav_left", text: "", onClicked: textArea.cursorBackward},
+                                                {iconName: "nav_right", text: "", onClicked: textArea.cursorForward},
+                                                {iconName: "nav_down", text: "", disabled: true}]]
                         onClicked: keyboard.setCharSet(charSet)
                     }
 
                     SpellerSquareButton {
                         id: buttonUppercaseChars
-                        icon: "uppercase"
+                        iconName: "uppercase"
                         onClicked: keyboard.setUpperCase()
                     }
 
                     SpellerSquareButton {
                         id: buttonPolishChars
-                        icon: "polish"
+                        iconName: "polish"
                         onClicked: keyboard.setPolishChars()
                     }
 
                     SpellerSquareButton {
                         id: buttonNewLine
-                        icon: "enter"
+                        iconName: "enter"
                         onClicked: textArea.newLine()
                     }
 
@@ -213,7 +213,7 @@ PisakMainWindow {
 
                     SpellerSquareButtonScanningTeleporter {
                         id: buttonFromKeyboardToMainMenu
-                        icon: "tools"
+                        iconName: "tools"
                         controller: scanningController
                         targetGroup: mainMenuGroup
                     }

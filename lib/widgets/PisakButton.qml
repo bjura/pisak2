@@ -1,7 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 import ".."
 import "../style"
 import "../scanning"
@@ -20,9 +19,9 @@ PisakScanningGroup {
 
     signal clicked()
 
-    property alias text: __button.text
+    property alias text: label.text
 
-    property string icon: null
+    property string iconName: ""
 
     /*!
         \qmlproperty string PisakButton::styleClass
@@ -39,51 +38,80 @@ PisakScanningGroup {
 
     function __afterSelect() { unwind(2) }
 
-    Button {
+    Rectangle {
         id: __button
         anchors.fill: parent
-        iconSource: icon ? pisak.resources.getIconPath(icon) : ""
-
-        style: ButtonStyle {
-            label: PisakLabel {
-                text: control.text
-                color: control.__styleSpec.foreground
-                font.family: control.__styleSpec.fontFamily
-            }
-
-            background: PisakRectangle {
-                color: control.__styleSpec.background
-                radius: control.__styleSpec.radius
-                border.color: control.__styleSpec.border
-                border.width: control.__styleSpec.borderWidth
-
-                SequentialAnimation on color {
-                    id: __animation
-                    loops: Animation.Infinite
-                    running: button.__activeAnimationRunning
-
-                    readonly property var __style: control.__style["active"].feedbackAnimation
-
-                    ColorAnimation {
-                        from: __animation.__style.colorFrom
-                        to: __animation.__style.colorTo
-                        duration: button.activeBlinkInterval / 2
-                    }
-
-                    ColorAnimation {
-                        from: __animation.__style.colorTo
-                        to: __animation.__style.colorFrom
-                        duration: button.activeBlinkInterval / 2
-                    }
-                }
-            }
-
-        }
 
         readonly property var __style: PisakStyle.skin[parent.styleClass]
 
         readonly property var __styleSpec: __style[parent.state]
 
-        onClicked: parent.clicked()
-   }
+        color: __styleSpec.background
+        radius: __styleSpec.radius
+        border.color: __styleSpec.border
+        border.width: __styleSpec.borderWidth
+
+        SequentialAnimation on color {
+            id: __animation
+            loops: Animation.Infinite
+            running: button.__activeAnimationRunning
+
+            readonly property var __style: __button.__style["active"].feedbackAnimation
+
+            ColorAnimation {
+                from: __animation.__style.colorFrom
+                to: __animation.__style.colorTo
+                duration: button.activeBlinkInterval / 2
+            }
+
+            ColorAnimation {
+                from: __animation.__style.colorTo
+                to: __animation.__style.colorFrom
+                duration: button.activeBlinkInterval / 2
+            }
+        }
+
+        RowLayout {
+            spacing: 5
+            anchors.fill: parent
+
+            PisakLabel {
+                id: label
+                Layout.fillHeight: true
+                Layout.fillWidth: false
+                Layout.alignment: Qt.AlignVCenter | (icon.visible ? Qt.AlignLeft : Qt.AlignHCenter)
+                Layout.leftMargin: __button.border.width + 2
+                Layout.rightMargin: 1
+                Layout.bottomMargin: __button.border.width + 2
+                Layout.topMargin: __button.border.width + 2
+                color: __button.__styleSpec.foreground
+                font.family: __button.__styleSpec.fontFamily
+                visible: !(text === "")
+            }
+
+            PisakImage {
+                id: icon
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignVCenter | (label.visible ? Qt.AlignRight : Qt.AlignHCenter)
+                Layout.leftMargin: 1
+                Layout.rightMargin: __button.border.width + 2
+                Layout.bottomMargin: __button.border.width + 2
+                Layout.topMargin: __button.border.width + 2
+                source: button.iconName ? pisak.resources.getIconPath(button.iconName) : ""
+                visible: !(button.iconName === "")
+
+                ColorOverlay {
+                    anchors.fill: icon
+                    source: icon
+                    color:  __button.__styleSpec.foreground
+                }
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: button.clicked()
+        }
+    }
 }

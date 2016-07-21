@@ -18,11 +18,11 @@ ColumnLayout {
 
     property var defaultCharSet: [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
                                   ["a", "s", "d", "f", "g", "h", "j", "k", "l",
-                                   {icon: "nav_up", text: "", onClicked: null, disabled: true}],
+                                   {iconName: "nav_up", text: "", disabled: true}],
                                   ["z", "x", "c", "v", "b", "n", "m",
-                                   {icon: "nav_left", text: "", onClicked: textArea.cursorBackward},
-                                   {icon: "nav_down", text: "", onClicked: null, disabled: true},
-                                   {icon: "nav_right", text: "",onClicked: textArea.cursorForward}]]
+                                   {iconName: "nav_left", text: "", onClicked: textArea.cursorBackward},
+                                   {iconName: "nav_right", text: "", onClicked: textArea.cursorForward},
+                                   {iconName: "nav_down", text: "", disabled: true}]]
 
     property var __currentCharSet: defaultCharSet
 
@@ -73,9 +73,11 @@ ColumnLayout {
 
                 SpellerKey {
                     id: key
-                    text: modelData
-                    icon: ""
-                    onClicked: { keyboard.__selectKey(key) }
+                    text: modelData instanceof Object ? modelData.text : modelData
+                    iconName: modelData instanceof Object ? modelData.iconName : ""
+                    onClicked: modelData instanceof Object && modelData.onClicked ? modelData.onClicked() :
+                                                                                    keyboard.__selectKey(key)
+                    state: modelData instanceof Object && modelData.disabled ? "disabled" : key.state
                 }
             }
 
