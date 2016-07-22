@@ -122,17 +122,9 @@ PisakMainWindow {
                 }
             }
 
-            ColumnLayout {
+            SpellerPrediction {
                 id: predictionPanel
-                Layout.alignment: Qt.AlignVCenter
-                spacing: 5
-
-                Repeater {
-                    model: 8
-                    SpellerButton {
-                        text: qsTr("PREDYKCJA %1").arg(index+1)
-                    }
-                }
+                target: textArea
             }
 
             ColumnLayout {

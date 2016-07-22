@@ -1,7 +1,7 @@
 from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject, QThread
 from PyQt5.QtQml import qmlRegisterType
 
-import engine
+from .engine import getPredictions
 
 
 class _PredictorThread(QThread):
@@ -16,7 +16,7 @@ class _PredictorThread(QThread):
         self.wait()
 
     def run(self):
-        self.output.emit(','.join(engine.getPredictions(self._feed)))
+        self.output.emit(','.join(getPredictions(self._feed)))
 
 
 class Predictor(QObject):
