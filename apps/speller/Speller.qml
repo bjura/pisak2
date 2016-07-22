@@ -189,7 +189,7 @@ PisakMainWindow {
 
                     SpellerSquareButton {
                         id: buttonUppercaseChars
-                        iconName: "uppercase"
+                        iconName: keyboard.letterCase + 'case'
                         onClicked: keyboard.setUpperCase()
                     }
 

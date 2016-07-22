@@ -24,6 +24,8 @@ ColumnLayout {
                                    {iconName: "nav_right", text: "", onClicked: textArea.cursorForward},
                                    {iconName: "nav_down", text: "", disabled: true}]]
 
+    property string letterCase: __uppercase ? "upper" : "lower"
+
     property var __currentCharSet: defaultCharSet
 
     property var __keyboardModel: null
@@ -107,8 +109,9 @@ ColumnLayout {
         __mainScanningGroup.elements = __scanningGroups
     }
 
-    function setCharSet(newCharSet) {
-        __uppercase = false
+    function setCharSet(newCharSet, flag) {
+        if (flag !== "polish") { __uppercase = false }
+        if (flag !== "uppercase") {__polishChars = false }
         if (newCharSet === __currentCharSet) { newCharSet = null }
         __backToDefaultCharSetOnUnwind = newCharSet !== defaultCharSet
         __currentCharSet = newCharSet || defaultCharSet
@@ -121,7 +124,7 @@ ColumnLayout {
     function setUpperCase() {
         if (!__uppercase) {
             setCharSet(__currentCharSet.map(function(row) {
-                return row.map(function(x){ return x instanceof Object ? x : x.toUpperCase() }) }))
+                return row.map(function(x){ return x instanceof Object ? x : x.toUpperCase() }) }), "uppercase")
             __uppercase = true
         } else {
             setDefaultCharSet()
@@ -129,7 +132,18 @@ ColumnLayout {
     }
 
     function setPolishChars() {
-        if (!__polishChars) {} else {}
+        if (!__polishChars) {
+            setCharSet(__currentCharSet.map(function(row) {
+                return row.map(function(x){
+                    if (!(x instanceof Object)) { x.toLowerCase() }
+                    var polished = x instanceof Object || __polishCharsMap[0].indexOf(x) < 0 ? x :
+                        function(p){ return (__uppercase ? p.toUpperCase() : p) }.call(
+                            keyboard, __polishCharsMap[1][__polishCharsMap[0].indexOf(x)])
+                    return polished }) }), "polish")
+            __polishChars = true
+        } else {
+            setDefaultCharSet()
+        }
     }
 
     function __selectKey(key) {
