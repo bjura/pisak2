@@ -46,13 +46,13 @@ Item {
     property var unwind: __unwind
 
     /*!
-        \qmlproperty string PisakScanningGroup::soundName
+        \qmlproperty string PisakScanningGroup::selectSoundName
 
-        Name of a sound effect that should represent the group and be played on demand.
+        Name of a sound effect that should represent the group and be played on select.
 
-        The default value is \c "".
+        The default value is \c "selectSound".
     */
-    property string soundName: ""
+    property string selectSoundName: "selectSound"
 
     /*!
         \qmlproperty var PisakScanningGroup::elements
@@ -109,8 +109,8 @@ Item {
     }
 
     PisakSoundEffect {
-        id: __sound
-        source: soundName ? pisak.resources.getSoundPath(soundName) : ""
+        id: __selectSound
+        source: selectSoundName ? pisak.resources.getSoundPath(selectSoundName) : ""
     }
 
     onElementsChanged: {
@@ -158,6 +158,7 @@ Item {
     }
 
     function select() {
+        __selectSound.play()
         state = "active"
         __doSelect()
     }
