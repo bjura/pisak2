@@ -120,7 +120,7 @@ PisakScanningGroup {
                 Layout.fillWidth: false
                 Layout.alignment: Qt.AlignVCenter | (icon.visible ? Qt.AlignLeft : Qt.AlignHCenter)
                 Layout.leftMargin: __button.border.width + 2
-                Layout.rightMargin: 1
+                Layout.rightMargin: icon.visible ? 1 : __button.border.width + 2
                 Layout.bottomMargin: __button.border.width + 2
                 Layout.topMargin: __button.border.width + 2
                 color: __button.__styleSpec.foreground
@@ -133,10 +133,10 @@ PisakScanningGroup {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter | (label.visible ? Qt.AlignRight : Qt.AlignHCenter)
-                Layout.leftMargin: 1
-                Layout.rightMargin: __button.border.width + 2
-                Layout.bottomMargin: __button.border.width + 2
-                Layout.topMargin: __button.border.width + 2
+                Layout.leftMargin: label.visible ? 1 : __button.border.width + 5
+                Layout.rightMargin: __button.border.width + 5
+                Layout.bottomMargin: __button.border.width + 5
+                Layout.topMargin: __button.border.width + 5
                 source: button.iconName ? pisak.resources.getIconPath(button.iconName) : ""
                 visible: !(button.iconName === "")
 

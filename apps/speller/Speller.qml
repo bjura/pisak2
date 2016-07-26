@@ -56,6 +56,10 @@ PisakMainWindow {
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
 
+                PisakImage {
+                    source: pisak.resources.getIconPath("tools")
+                }
+
                 SpellerButtonScanningTeleporter {
                     id: buttonFromMainMenuToKeyboard
                     text: qsTr("LITERY")
@@ -126,6 +130,10 @@ PisakMainWindow {
                 id: predictionPanel
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
+
+                PisakImage {
+                    source: pisak.resources.getIconPath("prediction")
+                }
 
                 Repeater {
                     model: 8
