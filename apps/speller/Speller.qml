@@ -54,16 +54,18 @@ PisakMainWindow {
             ColumnLayout {
                 id: mainMenuPanel
                 Layout.alignment: Qt.AlignVCenter
-                spacing: 5
+                spacing: 2
 
                 RowLayout {
                     spacing: 5
+                    Layout.alignment: Qt.AlignHCenter
 
                     SpellerLabel {
                         text: qsTr("NARZĘDZIA")
                     }
 
                     PisakImage {
+                        Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
                         source: pisak.resources.getIconPath("tools")
                     }
                 }
@@ -140,13 +142,15 @@ PisakMainWindow {
                 spacing: 5
 
                 RowLayout {
-                    spacing: 5
+                    spacing: 2
+                    Layout.alignment: Qt.AlignHCenter
 
                     SpellerLabel {
                         text: qsTr("PREDYKCJA")
                     }
 
                     PisakImage {
+                        Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
                         source: pisak.resources.getIconPath("prediction")
                     }
                 }
