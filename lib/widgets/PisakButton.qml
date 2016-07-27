@@ -117,7 +117,7 @@ PisakScanningGroup {
             PisakLabel {
                 id: label
                 Layout.fillHeight: true
-                Layout.fillWidth: false
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter | (icon.visible ? Qt.AlignLeft : Qt.AlignHCenter)
                 Layout.leftMargin: __button.border.width + 2
                 Layout.rightMargin: icon.visible ? 1 : __button.border.width + 2
@@ -131,7 +131,7 @@ PisakScanningGroup {
             PisakImage {
                 id: icon
                 Layout.fillHeight: true
-                Layout.fillWidth: true
+                Layout.fillWidth: !label.visible
                 Layout.alignment: Qt.AlignVCenter | (label.visible ? Qt.AlignRight : Qt.AlignHCenter)
                 Layout.leftMargin: label.visible ? 1 : __button.border.width + 5
                 Layout.rightMargin: __button.border.width + 5

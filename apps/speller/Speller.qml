@@ -56,8 +56,16 @@ PisakMainWindow {
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
 
-                PisakImage {
-                    source: pisak.resources.getIconPath("tools")
+                RowLayout {
+                    spacing: 5
+
+                    SpellerLabel {
+                        text: qsTr("NARZĘDZIA")
+                    }
+
+                    PisakImage {
+                        source: pisak.resources.getIconPath("tools")
+                    }
                 }
 
                 SpellerButtonScanningTeleporter {
@@ -131,8 +139,16 @@ PisakMainWindow {
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
 
-                PisakImage {
-                    source: pisak.resources.getIconPath("prediction")
+                RowLayout {
+                    spacing: 5
+
+                    SpellerLabel {
+                        text: qsTr("PREDYKCJA")
+                    }
+
+                    PisakImage {
+                        source: pisak.resources.getIconPath("prediction")
+                    }
                 }
 
                 Repeater {
