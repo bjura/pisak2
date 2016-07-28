@@ -25,11 +25,6 @@ ColumnLayout {
         property var predictionList: []
 
         onPredictionsChanged: predictionList = predictions.split(",")
-
-        onNewTextChanged: {
-            target.text = newText
-            target.cursorPosition = target.length
-        }
     }
 
     Repeater {
@@ -39,7 +34,10 @@ ColumnLayout {
             id: button
             text: __predictor.predictionList.length > index ? __predictor.predictionList[index] : ""
             state: text === "" ? "disabled" : "normal"
-            onClicked: __predictor.applyPrediction(main.target.text, text)
+            onClicked: {
+                main.target.text = __predictor.applyPrediction(main.target.text, text)
+                main.target.cursorPosition = target.length
+            }
         }
     }
 }

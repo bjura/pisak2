@@ -25,8 +25,6 @@ class Predictor(QObject):
 
     predictionsChanged = pyqtSignal(str)
 
-    newTextChanged = pyqtSignal(str)
-
     defaultContent = 'tak,nie,cześć,przepraszam,gdzie,lubię,ja,ty'
 
     lastContextSrc = '''
@@ -45,10 +43,9 @@ class Predictor(QObject):
         super().__init__(parent)
         self._feed = ''
         self._worker = None
-        self._newText = ''
         self.predictions = self.defaultContent
 
-    @pyqtSlot(str, str)
+    @pyqtSlot(str, str, result=str)
     def applyPrediction(self, text, supplied):
         if self.automaticSpace:
                 supplied += ' '
@@ -64,16 +61,7 @@ class Predictor(QObject):
                 newText = text[ : startPos] + supplied
         else:
             newText = supplied
-        self.newText = newText
-
-    @pyqtProperty(str)
-    def newText(self):
-        return self._newText
-
-    @newText.setter
-    def newText(self, value):
-        self._newText = value
-        self.newTextChanged.emit(value)
+        return newText
 
     @pyqtProperty(str)
     def predictions(self):
