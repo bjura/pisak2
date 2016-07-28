@@ -6,26 +6,40 @@ import "../../lib/widgets"
 
 
 ColumnLayout {
+    id: main
     Layout.alignment: Qt.AlignVCenter
     spacing: 5
 
-    property PisakTextArea target: null
+    property PisakTextArea target: PisakTextArea {}
 
     property int buttonCount: 8
 
+    Connections {
+        target: main.target
+        onTextChanged: __predictor.feed = main.target.text
+    }
+
     PisakPredictor {
         id: __predictor
-        feed: target.text
 
-        property var predictionList: predictions.split(",")
+        property var predictionList: []
+
+        onPredictionsChanged: predictionList = predictions.split(",")
+
+        onNewTextChanged: {
+            target.text = newText
+            target.cursorPosition = target.length
+        }
     }
 
     Repeater {
         model: buttonCount
+
         SpellerButton {
             id: button
             text: __predictor.predictionList.length > index ? __predictor.predictionList[index] : ""
-            state: text === "" ? "disabled" : button.state
+            state: text === "" ? "disabled" : "normal"
+            onClicked: __predictor.applyPrediction(main.target.text, text)
         }
     }
 }

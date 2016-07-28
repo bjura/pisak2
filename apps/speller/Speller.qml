@@ -37,7 +37,6 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: predictionGroup
-            state: "disabled"
             elements: predictionPanel.children
         }
 

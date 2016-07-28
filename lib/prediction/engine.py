@@ -1,6 +1,7 @@
 """
 Prediction module. Uses Pressagio as an engine.
 """
+import os
 import platform
 
 import pressagio.callback
@@ -11,12 +12,14 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
+from ..resources import Resources
+
 
 _configParser = configparser.ConfigParser()
 
-_configParser.read('config.ini')
+_configParser.read(os.path.join(Resources.resDir, 'configs', 'prediction.ini'))
 
-_configParser['Database']['database'] = 'n_grams.sqlite'
+_configParser['Database']['database'] = os.path.join(Resources.resDir, 'n_grams.sqlite')
 
 
 def getPredictions(string):
