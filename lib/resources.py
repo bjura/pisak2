@@ -1,6 +1,6 @@
 import os.path
 
-from PyQt5.QtCore import QObject, QStandardPaths, QDir, pyqtSlot
+from PyQt5.QtCore import QObject, QStandardPaths, QDir, pyqtSlot, pyqtProperty
 
 
 class Resources(QObject):
@@ -25,3 +25,8 @@ class Resources(QObject):
     def getIconPath(self, iconName):
         iconFile = iconName + self.iconFileExt
         return os.path.join(self.resDir, 'icons', iconFile)
+
+    @pyqtProperty(str, constant=True)
+    def symbolsFolder(self):
+        return os.path.join(QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)[0],
+                            'symbols')

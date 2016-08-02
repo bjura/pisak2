@@ -154,11 +154,9 @@ PisakMainWindow {
                     }
                 }
 
-                Item {
+                SymbolerPager {
                     id: pager
                     Layout.alignment: Qt.AlignVCenter
-                    Layout.minimumHeight: 20 * PisakGlobals.fontPixelSize
-                    Layout.minimumWidth: 30 * PisakGlobals.fontPixelSize
                 }
 
                 ColumnLayout {
