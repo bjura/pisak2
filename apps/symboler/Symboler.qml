@@ -179,34 +179,43 @@ PisakMainWindow {
 
                     SymbolerSquareButton {
                         iconName: "loop"
+                        onClicked: pager.runAutomatic()
                     }
 
                     SymbolerSquareButton {
                         iconName: "nav_right"
+                        onClicked: pager.scrollForward()
                     }
 
                     SymbolerSquareButton {
                         iconName: "nav_left"
+                        onClicked: pager.scrollBackward()
                     }
 
                     SymbolerSquareButtonScanningTeleporter {
                         iconName: "symbols"
+                        state: "disabled"
                     }
 
                     SymbolerSquareButton {
                         iconName: "backspace"
+                        onClicked: inputPanel.backspace()
                     }
 
                     SymbolerSquareButton {
                         iconName: "lips"
+                        state: "disabled"
                     }
 
                     SymbolerSquareButtonScanningTeleporter {
                         iconName: "tools"
+                        controller: scanningController
+                        targetGroup: mainMenuGroup
                     }
 
                     SymbolerSquareButton {
                         iconName: "house"
+                        onClicked: app.exitApp()
                     }
                 }
             }

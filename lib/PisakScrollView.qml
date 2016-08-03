@@ -84,6 +84,8 @@ PisakScanningGroup {
         __updateGroups()
     }
 
+    function runAutomatic() {}
+
     function scrollForward() {
         __layoutView.currentIndex = (__layoutView.currentIndex + __layoutView.visibleItemCount) % __layoutView.count
     }

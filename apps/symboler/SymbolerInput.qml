@@ -13,9 +13,12 @@ ScrollView {
     property var __symbols: new Array(0)
 
     ListView {
+        id: __listView
         anchors.fill: parent
         spacing: 2
         orientation: ListView.Horizontal
+        highlightFollowsCurrentItem: true
+        keyNavigationWraps: false
 
         model: input.__symbols
 
@@ -25,13 +28,13 @@ ScrollView {
         }
     }
 
-    function addSymbol(fileBaseName, fileURL) {
-        __symbols.push({fileBaseName: fileBaseName, fileURL: fileURL})
-    }
+    function addSymbol(fileBaseName, fileURL) { __symbols.push({fileBaseName: fileBaseName, fileURL: fileURL}) }
 
-    function backspace() {}
+    function backspace() { __symbols.length = Math.max(__symbols.length - 1, 0) }
 
-    function scrollForward() {}
+    function scrollForward() { __listView.incrementCurrentIndex() }
 
-    function scrollBackward() {}
+    function scrollBackward() { __listView.decrementCurrentIndex() }
+
+    function clearAll() { __symbols.length = 0 }
 }
