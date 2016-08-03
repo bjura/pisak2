@@ -156,7 +156,20 @@ PisakMainWindow {
 
                 SymbolerPager {
                     id: pager
+                    Layout.preferredHeight: 20 * PisakGlobals.fontPixelSize
+                    Layout.preferredWidth: 35 * PisakGlobals.fontPixelSize
                     Layout.alignment: Qt.AlignVCenter
+
+                    model: SymbolerFolderModel {}
+
+                    delegate: SymbolerTile {
+                        width: pager.cellWidth
+                        height: pager.cellHeight
+                        text: fileBaseName
+                        imageSource: fileIsDir ? "" : fileURL
+
+                        onClicked: inputPanel.addSymbol(fileBaseName, fileURL)
+                    }
                 }
 
                 ColumnLayout {
