@@ -6,6 +6,7 @@ import "../../lib"
 
 ScrollView {
     id: input
+    visible: true
     Layout.fillWidth: true
     Layout.minimumHeight: 2 * PisakGlobals.fontPixelSize
     Layout.preferredHeight: 3 * PisakGlobals.fontPixelSize
@@ -20,21 +21,41 @@ ScrollView {
         highlightFollowsCurrentItem: true
         keyNavigationWraps: false
 
-        model: input.__symbols
+        model: []
 
-        delegate: SymbolerTile {
-            text: modelData.fileBaseName
-            imageSource: modelData.fileURL
+        delegate: symbolDelegate
+
+        Component {
+            id: symbolDelegate
+
+            SymbolerTile {
+                text: modelData.fileBaseName
+                imageSource: modelData.fileURL
+            }
         }
     }
 
-    function addSymbol(fileBaseName, fileURL) { __symbols.push({fileBaseName: fileBaseName, fileURL: fileURL}) }
+    function addSymbol(fileBaseName, fileURL) {
+        __symbols.push({fileBaseName: fileBaseName, fileURL: fileURL})
+        __updateView()
+    }
 
-    function backspace() { __symbols.length = Math.max(__symbols.length - 1, 0) }
+    function backspace() {
+        __symbols.length = Math.max(__symbols.length - 1, 0)
+        __updateView()
+    }
 
     function scrollForward() { __listView.incrementCurrentIndex() }
 
     function scrollBackward() { __listView.decrementCurrentIndex() }
 
-    function clearAll() { __symbols.length = 0 }
+    function clearAll() {
+        __symbols.length = 0
+        __updateView()
+    }
+
+    function __updateView() {
+        __listView.model = __symbols
+        __listView.currentIndex = Math.max(__listView.count - 1, 0)
+    }
 }

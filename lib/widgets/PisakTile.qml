@@ -58,12 +58,12 @@ PisakScanningGroup {
             PisakImage {
                 id: image
                 Layout.fillHeight: true
-                Layout.fillWidth: !label.visible
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | (label.visible ? Qt.AlignTop : Qt.AlignVCenter)
-                Layout.leftMargin: __tile.border.width + 5
-                Layout.rightMargin: __tile.border.width + 5
-                Layout.bottomMargin: label.visible ? 1 : __tile.border.width + 5
-                Layout.topMargin: __tile.border.width + 5
+                Layout.leftMargin: __tile.border.width + 2
+                Layout.rightMargin: __tile.border.width + 2
+                Layout.bottomMargin: label.visible ? 1 : __tile.border.width + 2
+                Layout.topMargin: __tile.border.width + 2
                 visible: !(source === "")
 
                 ColorOverlay {

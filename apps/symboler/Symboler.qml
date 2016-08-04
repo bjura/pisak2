@@ -162,13 +162,19 @@ PisakMainWindow {
 
                     model: SymbolerFolderModel {}
 
-                    delegate: SymbolerTile {
-                        width: pager.cellWidth
-                        height: pager.cellHeight
-                        text: fileBaseName
-                        imageSource: fileIsDir ? "" : fileURL
+                    delegate: symbolDelegate
 
-                        onClicked: inputPanel.addSymbol(fileBaseName, fileURL)
+                    Component {
+                        id: symbolDelegate
+
+                        SymbolerTile {
+                            width: pager.cellWidth
+                            height: pager.cellHeight
+                            text: fileBaseName
+                            imageSource: fileIsDir ? "" : fileURL
+
+                            onClicked: inputPanel.addSymbol(fileBaseName, fileURL)
+                        }
                     }
                 }
 
