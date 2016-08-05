@@ -202,7 +202,8 @@ PisakMainWindow {
 
                     SymbolerSquareButtonScanningTeleporter {
                         iconName: "symbols"
-                        state: "disabled"
+                        controller: scanningController
+                        targetGroup: pager
                     }
 
                     SymbolerSquareButton {

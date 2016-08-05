@@ -53,12 +53,7 @@ PisakScanningGroup {
 
             readonly property int visibleGroupCount: flow === GridView.FlowLeftToRight ? main.rows : main.columns
 
-            onVisibleItemCountChanged: __updateGroups()
-            onItemPerGroupCountChanged: __updateGroups()
-
-            Component.onCompleted: {
-                __updateGroups()
-            }
+            onCurrentIndexChanged: __updateGroups()
 
             onMovementEnded: main.__onMovementEnded()
 
@@ -69,7 +64,7 @@ PisakScanningGroup {
                 for(var i = 0; i < visibleGroupCount; i++) {
                     var group = new Array(0)
                     for(var j = 0; j < itemPerGroupCount; j++) {
-                        var idx = i * itemPerGroupCount + j
+                        var idx = currentIndex + i * itemPerGroupCount + j
                         group.push(contentItem.children[idx])
                     }
                     groups.push(group)
