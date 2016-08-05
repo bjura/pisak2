@@ -39,6 +39,8 @@ PisakScanningGroup {
         GridView {
             id: __layoutView
             anchors.fill: parent
+            highlightFollowsCurrentItem: true
+            highlightRangeMode: GridView.StrictlyEnforceRange
 
             cellWidth: width / main.columns
             cellHeight: height / main.rows
@@ -84,10 +86,15 @@ PisakScanningGroup {
     function runAutomatic() {}
 
     function scrollForward() {
-        __layoutView.currentIndex = (__layoutView.currentIndex + __layoutView.visibleItemCount) % __layoutView.count
+        __layoutView.currentIndex = __layoutView.currentIndex + __layoutView.visibleItemCount < __layoutView.count ?
+            __layoutView.currentIndex + __layoutView.visibleItemCount : 0
     }
 
-    function scrollBackward() {}
+    function scrollBackward() {
+        __layoutView.currentIndex = __layoutView.currentIndex >= __layoutView.visibleItemCount ?
+            __layoutView.currentIndex - __layoutView.visibleItemCount :
+                __layoutView.count - __layoutView.count % __layoutView.visibleItemCount
+    }
 
     function moveToEnd() { __layoutView.positionViewAtEnd() }
 
