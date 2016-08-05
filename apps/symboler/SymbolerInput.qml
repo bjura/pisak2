@@ -9,7 +9,10 @@ ScrollView {
     visible: true
     Layout.fillWidth: true
     Layout.minimumHeight: 2 * PisakGlobals.fontPixelSize
-    Layout.preferredHeight: 3 * PisakGlobals.fontPixelSize
+
+    property int symbolWidth: 3 * PisakGlobals.fontPixelSize
+
+    property int symbolHeight: 3 * PisakGlobals.fontPixelSize
 
     property var __symbols: new Array(0)
 
@@ -31,11 +34,13 @@ ScrollView {
             SymbolerTile {
                 text: modelData.fileBaseName
                 imageSource: modelData.fileURL
+                width: input.symbolWidth
+                height: input.symbolHeight
             }
         }
     }
 
-    function addSymbol(fileBaseName, fileURL) {
+    function addSymbol(fileBaseName, fileURL, width, height) {
         __symbols.push({fileBaseName: fileBaseName, fileURL: fileURL})
         __updateView()
     }

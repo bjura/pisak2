@@ -16,8 +16,8 @@ PisakScanningGroup {
     property alias cellWidth: __layoutView.cellWidth
     property alias cellHeight: __layoutView.cellHeight
 
-    readonly property alias columns: __layoutView.visibleColumnCount
-    readonly property alias rows: __layoutView.visibleRowCount
+    property int columns: 4
+    property int rows: 3
 
     property var __scanningGroups: new Array(0)
 
@@ -40,19 +40,16 @@ PisakScanningGroup {
             id: __layoutView
             anchors.fill: parent
 
+            cellWidth: width / main.columns
+            cellHeight: height / main.rows
+
             property var currentItems: []
 
-            readonly property int visibleColumnCount: Math.floor((flow === GridView.FlowLeftToRight ?
-                                                  width : visibleArea.widthRatio * contentWidth) / cellWidth)
+            readonly property int visibleItemCount: main.columns * main.rows
 
-            readonly property int visibleRowCount: Math.floor((flow === GridView.FlowLeftToRight ?
-                                               visibleArea.heightRatio * contentHeight : height) / cellHeight)
+            readonly property int itemPerGroupCount: flow === GridView.FlowLeftToRight ? main.columns : main.rows
 
-            readonly property int visibleItemCount: visibleColumnCount * visibleRowCount
-
-            readonly property int itemPerGroupCount: flow === GridView.FlowLeftToRight ? visibleColumnCount : visibleRowCount
-
-            readonly property int visibleGroupCount: flow === GridView.FlowLeftToRight ? visibleRowCount : visibleColumnCount
+            readonly property int visibleGroupCount: flow === GridView.FlowLeftToRight ? main.rows : main.columns
 
             onVisibleItemCountChanged: __updateGroups()
             onItemPerGroupCountChanged: __updateGroups()

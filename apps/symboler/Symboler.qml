@@ -56,6 +56,8 @@ PisakMainWindow {
 
                 SymbolerInput {
                     id: inputPanel
+                    symbolWidth: pager.cellWidth
+                    symbolHeight: pager.cellHeight
                 }
 
                 ColumnLayout {
@@ -173,7 +175,7 @@ PisakMainWindow {
                             text: fileBaseName
                             imageSource: fileIsDir ? "" : fileURL
 
-                            onClicked: inputPanel.addSymbol(fileBaseName, fileURL)
+                            onClicked: inputPanel.addSymbol(fileBaseName, fileURL, width, height)
                         }
                     }
                 }

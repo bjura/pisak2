@@ -7,6 +7,4 @@ import "../../lib"
 PisakTile {
     Layout.minimumHeight: 2 * PisakGlobals.fontPixelSize
     Layout.minimumWidth: 2 * PisakGlobals.fontPixelSize
-    Layout.preferredWidth: 3 * PisakGlobals.fontPixelSize
-    Layout.preferredHeight: 3 * PisakGlobals.fontPixelSize
 }
