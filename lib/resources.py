@@ -13,6 +13,8 @@ class Resources(QObject):
 
     iconFileExt  = '.svg'
 
+    homeAppDir = os.path.join(QStandardPaths.standardLocations(QStandardPaths.HomeLocation)[0], '.pisak')
+
     @pyqtSlot(str, result=str)
     def getSoundPath(self, soundName):
         soundFile = soundName + self.soundFileExt
@@ -28,5 +30,4 @@ class Resources(QObject):
 
     @pyqtProperty(str, constant=True)
     def symbolsFolder(self):
-        return os.path.join(QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)[0],
-                            'symbols')
+        return os.path.join(self.homeAppDir, 'symbols')

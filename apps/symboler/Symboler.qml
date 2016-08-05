@@ -172,10 +172,10 @@ PisakMainWindow {
                         SymbolerTile {
                             width: pager.cellWidth
                             height: pager.cellHeight
-                            text: fileBaseName
+                            text: fileBaseName.replace("_", " ")
                             imageSource: fileIsDir ? "" : fileURL
 
-                            onClicked: inputPanel.addSymbol(fileBaseName, fileURL, width, height)
+                            onClicked: inputPanel.addSymbol(text, fileURL, width, height)
                         }
                     }
                 }
