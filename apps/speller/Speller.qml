@@ -12,11 +12,18 @@ PisakMainWindow {
     width: Screen.width * 0.7
     height: Screen.height * 0.7
 
+    PisakImage {
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectCrop
+        source: "../../res/fence.png"
+    }
+
     Component.onCompleted: scanningController.startScanning()
 
     PisakApplication {
         id: app
         anchors.fill: parent
+        anchors.margins: 10
 
         onExitApp: main.close()
 
@@ -48,25 +55,17 @@ PisakMainWindow {
         RowLayout {
             width: parent.width
             height: parent.height
-            spacing: 5
+            spacing: 10
 
             ColumnLayout {
                 id: mainMenuPanel
                 Layout.alignment: Qt.AlignVCenter
-                spacing: 2
+                spacing: 5
 
-                RowLayout {
-                    spacing: 5
+                PisakImage {
+                    Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
+                    source: pisak.resources.getIconPath("funkcje_header")
                     Layout.alignment: Qt.AlignHCenter
-
-                    SpellerLabel {
-                        text: qsTr("NARZĘDZIA")
-                    }
-
-                    PisakImage {
-                        Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
-                        source: pisak.resources.getIconPath("tools")
-                    }
                 }
 
                 SpellerButtonScanningTeleporter {
@@ -136,25 +135,19 @@ PisakMainWindow {
             }
 
             ColumnLayout {
-                spacing: 2
+                spacing: 5
                 Layout.alignment: Qt.AlignHCenter
 
-                RowLayout {
-                    spacing: 2
+                PisakImage {
+                    Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
+                    source: pisak.resources.getIconPath("predykcja_header")
                     Layout.alignment: Qt.AlignHCenter
-
-                    SpellerLabel {
-                        text: qsTr("PREDYKCJA")
-                    }
-
-                    PisakImage {
-                        Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
-                        source: pisak.resources.getIconPath("prediction")
-                    }
                 }
 
                 SpellerPrediction {
                     id: predictionPanel
+                    Layout.alignment: Qt.AlignVCenter
+                    spacing: 5
                     target: textArea
                 }
             }
@@ -213,7 +206,7 @@ PisakMainWindow {
 
                     SpellerSquareButton {
                         id: buttonUppercaseChars
-                        iconName: keyboard.letterCase + 'case'
+                        iconName: "uppercase_old"
                         onClicked: keyboard.setUpperCase()
                     }
 

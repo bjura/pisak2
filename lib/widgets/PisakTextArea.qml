@@ -16,6 +16,7 @@ TextArea {
     wrapMode: TextEdit.Wrap
     activeFocusOnPress: false
     font.pixelSize: PisakGlobals.fontPixelSize
+    font.family: "Kelson Sans"
 
     property string styleClass: "textArea"
 

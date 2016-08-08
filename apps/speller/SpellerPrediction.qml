@@ -7,12 +7,10 @@ import "../../lib/widgets"
 
 ColumnLayout {
     id: main
-    Layout.alignment: Qt.AlignVCenter
-    spacing: 5
 
     property PisakTextArea target: PisakTextArea {}
 
-    property int buttonCount: 8
+    property int buttonCount: 9
 
     Connections {
         target: main.target

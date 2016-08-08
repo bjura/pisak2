@@ -4,6 +4,7 @@ import ".."
 
 
 Label {
+    font.family: "Kelson Sans"
     font.pixelSize: PisakGlobals.fontPixelSize
     font.capitalization: Font[pisak.settings.fontCapitalization || "MixedCase"]
     elide: Text.ElideRight
