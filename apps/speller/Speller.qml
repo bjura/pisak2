@@ -37,7 +37,6 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: predictionGroup
-            state: "disabled"
             elements: predictionPanel.children
         }
 
@@ -137,9 +136,8 @@ PisakMainWindow {
             }
 
             ColumnLayout {
-                id: predictionPanel
-                Layout.alignment: Qt.AlignVCenter
-                spacing: 5
+                spacing: 2
+                Layout.alignment: Qt.AlignHCenter
 
                 RowLayout {
                     spacing: 2
@@ -155,11 +153,9 @@ PisakMainWindow {
                     }
                 }
 
-                Repeater {
-                    model: 8
-                    SpellerButton {
-                        text: qsTr("PREDYKCJA %1").arg(index+1)
-                    }
+                SpellerPrediction {
+                    id: predictionPanel
+                    target: textArea
                 }
             }
 
