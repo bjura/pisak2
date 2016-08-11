@@ -30,7 +30,7 @@ setup(
     include_package_data=True,
     exclude_package_data={'': ['.gitignore', '.ci.yml'],
                             },
-    scripts=['pisak.main.py'],
+    scripts=['pisak/main.py'],
     entry_points={
               'gui_scripts': [
                   'pisak = pisak.main:run'
