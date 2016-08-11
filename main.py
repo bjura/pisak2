@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-if __name__ == '__main__':
+
+def run():
     import sys
     import os.path
 
@@ -23,3 +24,7 @@ if __name__ == '__main__':
     gui = sys.argv[1] if (len(sys.argv) == 2 and os.path.isfile(sys.argv[1])) else 'main.qml'
     app = Application(gui)
     app.run()
+
+
+if __name__ == '__main__':
+    run()
