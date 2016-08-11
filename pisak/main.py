@@ -5,7 +5,7 @@ def run():
     import sys
     import os.path
 
-    from pisak.application import Application
+    from .application import Application
 
     from PyQt5.QtWidgets import QApplication
 
