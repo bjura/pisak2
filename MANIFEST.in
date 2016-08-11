@@ -1,3 +1,4 @@
 include README.md
 recursive-include pisak *
+recursive-include apps *
 recursive-include res *
