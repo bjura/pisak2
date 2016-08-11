@@ -3,12 +3,15 @@
 The prerequisite is the python package manager (pip) and Git program to be installed in the system. On Linux they can be installed by running in the command line the following:
 
 sudo apt-get install git
+
 sudo apt-get install python3-pip
 
 Then to download and install PISAK (on Linux and Windows):
 
 git clone https://github.com/bjura/pisak2.git
+
 cd pisak2
+
 pip3 install -e .
 
 
