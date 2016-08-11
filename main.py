@@ -4,7 +4,7 @@ if __name__ == '__main__':
     import sys
     import os.path
 
-    from lib.application import Application
+    from pisak.application import Application
 
     from PyQt5.QtWidgets import QApplication
 

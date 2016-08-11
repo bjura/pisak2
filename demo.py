@@ -1,4 +1,4 @@
-from lib.application import Application
+from pisak.application import Application
 
 from PyQt5.QtWidgets import QApplication
 

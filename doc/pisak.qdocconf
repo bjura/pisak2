@@ -3,8 +3,8 @@
 project = PISAK
 description = Polish Integration System of Alternative Communication
 
-sourcedirs = ../lib
-headerdirs  = ../lib
+sourcedirs = ../pisak
+headerdirs  = ../pisak
 exampledirs = ..
 imagedirs = ../res
 

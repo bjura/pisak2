@@ -1,6 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Layouts 1.2
-import "../../lib/scanning"
+import "../../pisak/scanning"
 
 
 ColumnLayout {

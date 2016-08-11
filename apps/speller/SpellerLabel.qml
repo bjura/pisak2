@@ -1,4 +1,4 @@
-import "../../lib/widgets"
+import "../../pisak/widgets"
 
 
 PisakLabel {}

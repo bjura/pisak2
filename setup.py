@@ -23,12 +23,12 @@ setup(
     author='Bartosz Jura',
     author_email='barbartekjura@gmail.com',
     install_requires=[
-        'PyQt5',
-        'pressagio'
+        'pressagio',
+        # 'PyQt5'
     ],
     packages=find_packages(exclude=['doc']),
     include_package_data=True,
     exclude_package_data={'': ['.gitignore'],
                             },
-    scripts=['pisak.py']
+    scripts=['main.py']
 )

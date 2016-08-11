@@ -2,7 +2,7 @@ import QtQuick 2.5
 import QtQuick.Layouts 1.2
 import Pisak 1.0
 
-import "../../lib/widgets"
+import "../../pisak/widgets"
 
 
 ColumnLayout {

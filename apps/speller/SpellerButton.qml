@@ -1,6 +1,6 @@
 import QtQuick.Layouts 1.2
-import "../../lib/widgets"
-import "../../lib"
+import "../../pisak/widgets"
+import "../../pisak"
 
 
 PisakButton {
