@@ -28,7 +28,7 @@ setup(
     ],
     packages=find_packages(exclude=['doc']),
     include_package_data=True,
-    exclude_package_data={'': ['.gitignore'],
+    exclude_package_data={'': ['.gitignore', '.ci.yml'],
                             },
     scripts=['main.py'],
     entry_points={
