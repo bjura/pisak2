@@ -10,6 +10,8 @@ Then to install all the dependencies...
 
 sudo apt-get install python3-pyqt5 python3-pyqt5.qtmultimedia python3-pyqt5.qtquick
 
+sudo pip3 install pressagio
+
 ...on Windows:
 
 pip3 install PyQt5 pressagio
