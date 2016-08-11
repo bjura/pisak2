@@ -111,7 +111,7 @@ PisakScanningGroup {
         }
 
         RowLayout {
-            spacing: 5
+            spacing: 2
             anchors.fill: parent
 
             PisakLabel {
@@ -119,10 +119,10 @@ PisakScanningGroup {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter | (icon.visible ? Qt.AlignLeft : Qt.AlignHCenter)
-                Layout.leftMargin: __button.border.width + 2
-                Layout.rightMargin: icon.visible ? 1 : __button.border.width + 2
-                Layout.bottomMargin: __button.border.width + 2
-                Layout.topMargin: __button.border.width + 2
+                Layout.leftMargin: __button.border.width + 1
+                Layout.rightMargin: icon.visible ? 1 : __button.border.width + 1
+                Layout.bottomMargin: __button.border.width + 1
+                Layout.topMargin: __button.border.width + 1
                 color: __button.__styleSpec.foreground
                 font.family: __button.__styleSpec.fontFamily
                 visible: !(text === "")
@@ -130,13 +130,15 @@ PisakScanningGroup {
 
             PisakImage {
                 id: icon
-                Layout.fillHeight: true
-                Layout.fillWidth: !label.visible
+                Layout.preferredWidth: __button.height - 2*__button.border.width - (label.visible ? 0.2*__button.height : 2)
+                Layout.preferredHeight: __button.height - 2*__button.border.width - (label.visible ? 0.2*__button.height : 2)
+                Layout.fillHeight: false
+                Layout.fillWidth: false
                 Layout.alignment: Qt.AlignVCenter | (label.visible ? Qt.AlignRight : Qt.AlignHCenter)
-                Layout.leftMargin: label.visible ? 1 : __button.border.width + 5
-                Layout.rightMargin: __button.border.width + 5
-                Layout.bottomMargin: __button.border.width + 5
-                Layout.topMargin: __button.border.width + 5
+                Layout.leftMargin: label.visible ? 1 : __button.border.width + 1
+                Layout.rightMargin: __button.border.width + 1
+                Layout.bottomMargin: __button.border.width + 1
+                Layout.topMargin: __button.border.width + 1
                 source: button.iconName ? pisak.resources.getIconPath(button.iconName) : ""
                 visible: !(button.iconName === "")
 
