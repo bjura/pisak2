@@ -1,4 +1,3 @@
 include README.md LICENSE
 recursive-include pisak *
 recursive-include apps *
-recursive-include res *

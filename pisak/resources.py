@@ -25,3 +25,7 @@ class Resources(QObject):
     def getIconPath(self, iconName):
         iconFile = iconName + self.iconFileExt
         return os.path.join(self.resDir, 'icons', iconFile)
+
+    @pyqtSlot(str, result=str)
+    def getResource(self, item):
+        return os.path.join(self.resDir, item)

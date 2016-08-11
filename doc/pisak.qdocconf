@@ -6,7 +6,7 @@ description = Polish Integration System of Alternative Communication
 sourcedirs = ../pisak
 headerdirs  = ../pisak
 exampledirs = ..
-imagedirs = ../res
+imagedirs = ../pisak/res
 
 sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
 headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"

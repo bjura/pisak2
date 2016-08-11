@@ -5,7 +5,7 @@ import urllib.request
 from setuptools import setup, find_packages
 
 # ---- Prediction database download ----
-loc_file = os.path.join('res', 'n_grams.sqlite')
+loc_file = os.path.join('pisak', 'res', 'n_grams.sqlite')
 
 if not os.path.isfile(loc_file):
     def dlProgress(count, blockSize, totalSize):

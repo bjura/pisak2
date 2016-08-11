@@ -15,7 +15,7 @@ PisakMainWindow {
     PisakImage {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: "../../res/fence.png"
+        source: pisak.resources.getResource("fence.png")
     }
 
     Component.onCompleted: scanningController.startScanning()
