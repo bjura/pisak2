@@ -1,9 +1,9 @@
 import QtQuick 2.5
 import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
-import "."
-import "scanning"
-import "widgets"
+import "../pisak"
+import "../pisak/scanning"
+import "../pisak/widgets"
 
 
 PisakMainWindow {

@@ -25,11 +25,11 @@ git clone https://github.com/bjura/pisak2.git
 
 In order to run speller application, navigate to the main PISAK directory (where this file is located) and type in the command line the following:
 
-python3 pisak/main.py apps/speller/Speller.qml
+python3 scripts/main.py apps/speller/Speller.qml
 
 and to run symboler application:
 
-python3 pisak/main.py apps/symboler/Symboler.qml
+python3 scripts/main.py apps/symboler/Symboler.qml
 
 
 ## CREDITS

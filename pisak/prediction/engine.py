@@ -12,14 +12,14 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-from ..resources import Resources
+from ..res import getRes
 
 
 _configParser = configparser.ConfigParser()
 
-_configParser.read(os.path.join(Resources.resDir, 'configs', 'prediction.ini'))
+_configParser.read(getRes(os.path.join('configs', 'prediction.ini')))
 
-_configParser['Database']['database'] = os.path.join(Resources.resDir, 'n_grams.sqlite')
+_configParser['Database']['database'] = getRes('n_grams.sqlite')
 
 
 def getPredictions(string):
