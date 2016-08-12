@@ -60,22 +60,23 @@ class Application:
     def _installFonts(self):
         fontDirs = getRes('fonts')
         systemFontsDir = QStandardPaths.writableLocation(QStandardPaths.FontsLocation)
-        if not os.path.exists(systemFontsDir):
-            platform = sys.platform
-            if not (platform.startswith('linux') or platform.startswith('win')):
-                return
-            try:
-                os.mkdir(systemFontsDir)
-            except OSError as err:
-                print(err)
-                return
-        for fontName in os.listdir(fontDirs):
-            font = os.path.join(fontDirs, fontName)
-            for fontFileName in os.listdir(font):
-                fontFile = os.path.join(font, fontFileName)
-                targetFile = os.path.join(systemFontsDir, fontFileName)
-                if not os.path.exists(targetFile):
-                    try:
-                        shutil.copy2(fontFile, targetFile)
-                    except OSError as err:
-                        print(err)
+        if systemFontsDir:
+            if not os.path.exists(systemFontsDir):
+                platform = sys.platform
+                if not (platform.startswith('linux') or platform.startswith('win')):
+                    return
+                try:
+                    os.mkdir(systemFontsDir)
+                except OSError as err:
+                    print(err)
+                    return
+            for fontName in os.listdir(fontDirs):
+                font = os.path.join(fontDirs, fontName)
+                for fontFileName in os.listdir(font):
+                    fontFile = os.path.join(font, fontFileName)
+                    targetFile = os.path.join(systemFontsDir, fontFileName)
+                    if not os.path.exists(targetFile):
+                        try:
+                            shutil.copy2(fontFile, targetFile)
+                        except OSError as err:
+                            print(err)
