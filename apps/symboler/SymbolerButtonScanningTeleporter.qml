@@ -6,6 +6,8 @@ import "../../lib"
 PisakButtonScanningTeleporter {
     Layout.minimumHeight: 2 * PisakGlobals.fontPixelSize
     Layout.minimumWidth: 5 * PisakGlobals.fontPixelSize
-    Layout.fillHeight: true
+    Layout.preferredWidth: 8 * PisakGlobals.fontPixelSize
+    Layout.preferredHeight: 3 * PisakGlobals.fontPixelSize
+    Layout.fillHeight: false
     Layout.fillWidth: true
 }

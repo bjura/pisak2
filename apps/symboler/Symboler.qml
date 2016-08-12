@@ -12,6 +12,12 @@ PisakMainWindow {
     width: Screen.width * 0.7
     height: Screen.height * 0.7
 
+    PisakImage {
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectCrop
+        source: pisak.resources.getResource("fence.png")
+    }
+
     Component.onCompleted: scanningController.startScanning()
 
     PisakApplication {
@@ -170,8 +176,8 @@ PisakMainWindow {
                         id: symbolDelegate
 
                         SymbolerTile {
-                            width: pager.cellWidth
-                            height: pager.cellHeight
+                            width: pager.cellWidth - 5
+                            height: pager.cellHeight - 5
                             text: fileBaseName.replace("_", " ")
                             imageSource: fileIsDir ? "" : fileURL
 
