@@ -1,3 +1,5 @@
+import os
+
 from PyQt5.QtCore import QSettings, QStandardPaths
 
 
@@ -9,7 +11,8 @@ class Settings(QSettings):
         'skin': 'default'
     }
 
-    path = QStandardPaths.writableLocation(QStandardPaths.AppConfigLocation)
+    path = os.path.join(QStandardPaths.writableLocation(QStandardPaths.AppConfigLocation),
+                        'pisak')
     
     fileFormat = QSettings.IniFormat
 
