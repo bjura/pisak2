@@ -1,24 +1,18 @@
 ## INSTALL
 
-The prerequisite is the python package manager (pip) and Git program to be installed in the system. On Linux they can be installed by running in the command line the following:
+...on Linux the required dependencies can be installed by running:
 
-sudo apt-get install git python3-pip
+sudo apt-get install git python3-pip python3-pyqt5 python3-pyqt5.qtmultimedia python3-pyqt5.qtquick qtdeclarative5-qtmultimedia-plugin qtdeclarative5-controls-plugin
 
-Then to install all the dependencies...
+...on Windows the prerequisite is the python package manager (pip) and Git program to be installed in the system.
 
-...on Linux:
-
-sudo apt-get install python3-pyqt5 python3-pyqt5.qtmultimedia python3-pyqt5.qtquick
-
-sudo pip3 install pressagio
-
-...on Windows:
-
-pip3 install PyQt5 pressagio
-
-and finally to download PISAK (on both systems):
+Then, on both systems, to download and install PISAK:
 
 git clone https://github.com/bjura/pisak2.git
+
+cd pisak2
+
+pip3 install -e .
 
 
 ## HOW TO RUN
