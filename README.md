@@ -4,7 +4,9 @@
 
 sudo apt-get install git python3-pip python3-pyqt5 python3-pyqt5.qtmultimedia python3-pyqt5.qtquick qtdeclarative5-qtmultimedia-plugin qtdeclarative5-controls-plugin
 
-...on Windows the prerequisite is the python package manager (pip) and Git program to be installed in the system.
+...on Windows the prerequisite is the python package manager (pip) and Git program to be installed in the system. When it is satisfied, run:
+
+pip3 install PyQt5
 
 Then, on both systems, to download and install PISAK:
 
