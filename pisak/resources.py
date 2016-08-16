@@ -1,6 +1,6 @@
 import os.path
 
-from PyQt5.QtCore import QObject, QStandardPaths, QDir, pyqtSlot
+from PyQt5.QtCore import QObject, QStandardPaths, QDir, pyqtSlot, pyqtProperty
 
 from .res import getRes
 
@@ -12,6 +12,8 @@ class Resources(QObject):
     soundFileExt = '.wav'
 
     iconFileExt  = '.svg'
+
+    homeAppDir = os.path.join(QStandardPaths.standardLocations(QStandardPaths.HomeLocation)[0], '.pisak')
 
     @pyqtSlot(str, result=str)
     def getSoundPath(self, soundName):
@@ -29,3 +31,7 @@ class Resources(QObject):
     @pyqtSlot(str, result=str)
     def getResource(self, item):
         return getRes(item)
+
+    @pyqtProperty(str, constant=True)
+    def symbolsFolder(self):
+        return os.path.join(self.resDir, 'symbols')

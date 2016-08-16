@@ -1,0 +1,4 @@
+import "../../lib/widgets"
+
+
+PisakLabel {}
