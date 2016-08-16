@@ -1,4 +1,4 @@
-import "../../lib/models"
+import "../../pisak/models"
 import Qt.labs.folderlistmodel 2.1
 
 

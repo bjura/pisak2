@@ -1,6 +1,6 @@
 import QtQuick.Layouts 1.2
-import "../../lib/scanning"
-import "../../lib"
+import "../../pisak/scanning"
+import "../../pisak"
 
 
 PisakButtonScanningTeleporter {
