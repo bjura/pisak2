@@ -39,3 +39,7 @@ class Resources(QObject):
     @pyqtProperty(str, constant=True)
     def moviesDir(self):
         return QStandardPaths.standardLocations(QStandardPaths.MoviesLocation)[0]
+
+    @pyqtProperty(str, constant=True)
+    def musicDir(self):
+        return QStandardPaths.standardLocations(QStandardPaths.MusicLocation)[0]

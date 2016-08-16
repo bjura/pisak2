@@ -1,4 +1,4 @@
 import "../../pisak/widgets"
 
 
-PisakVideo {}
+PisakVideoPlayer {}
