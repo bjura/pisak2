@@ -4,7 +4,7 @@ import "../../pisak/models"
 
 PisakFolderModel {
     rootFolder: pisak.resources.musicDir
-    nameFilters: [ "*.avi", "*.mpeg", "*.ogg" ]
+    nameFilters: [ "*.mp3", "*.ogg" ]
     folder: pisak.resources.musicDir
     sortField: FolderListModel.Name
 }
