@@ -3,7 +3,7 @@
 PISAK is a program for people with severe impairments of muscle control that allows them to operate basic computer functionalities through binary (0-1) input.
 
 
-## INSTALL
+# INSTALL
 
 ...on Linux the required dependencies can be installed by running:
 
@@ -22,9 +22,9 @@ cd pisak2
 pip3 install -e .
 
 
-## HOW TO RUN
+# HOW TO RUN
 
-# SPELLER
+## SPELLER
 
 Speller is an application that allows users to write their own text, it provides virtual keyboard with various char sets and word prediction.
 
@@ -32,7 +32,7 @@ In order to run speller application, navigate to the main PISAK directory (where
 
 python3 scripts/main.py apps/speller/Speller.qml
 
-# SYMBOLER
+## SYMBOLER
 
 Application for communication with the use of different kinds of symbols or pictograms (like Bliss, Sclera etc) - any arbitrary set of labeled pictures can be used to compose a visual message.
 
@@ -41,11 +41,11 @@ To run symboler:
 python3 scripts/main.py apps/symboler/Symboler.qml
 
 
-## CREDITS
+# CREDITS
 
 <div>Some of the icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
 Kelson Sans font from http://fontfabric.com/kelson-sans
 
 
-Work has been done as a project for the Google Summer of Code 2016
+Work has been done as a project for the *Google Summer of Code 2016*
