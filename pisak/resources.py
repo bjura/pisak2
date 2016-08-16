@@ -34,4 +34,4 @@ class Resources(QObject):
 
     @pyqtProperty(str, constant=True)
     def symbolsFolder(self):
-        return os.path.join(self.resDir, 'symbols')
+        return getRes('symbols')
