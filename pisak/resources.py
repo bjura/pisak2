@@ -35,3 +35,7 @@ class Resources(QObject):
     @pyqtProperty(str, constant=True)
     def symbolsFolder(self):
         return getRes('symbols')
+
+    @pyqtProperty(str, constant=True)
+    def moviesDir(self):
+        return QStandardPaths.standardLocations(QStandardPaths.MoviesLocation)[0]
