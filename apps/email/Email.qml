@@ -54,7 +54,7 @@ PisakMainWindow {
                     Layout.alignment: Qt.AlignVCenter
                     spacing: 2
 
-                    BlogButton {
+                    EmailButton {
                         id: buttonExit
                         text: qsTr("WYJŚCIE")
                         iconName: "exit"
@@ -62,7 +62,7 @@ PisakMainWindow {
                     }
                 }
 
-                BlogPager {
+                EmailPager {
                     id: pager
                     Layout.preferredHeight: 20 * PisakGlobals.fontPixelSize
                     Layout.preferredWidth: 35 * PisakGlobals.fontPixelSize
@@ -70,12 +70,12 @@ PisakMainWindow {
 
                     model: []
 
-                    delegate: blogDelegate
+                    delegate: emailDelegate
 
                     Component {
-                        id: blogDelegate
+                        id: emailDelegate
 
-                        BlogTile {
+                        EmailTile {
                             width: pager.cellWidth - 5
                             height: pager.cellHeight - 5
                             text: fileBaseName.replace("_", " ")
