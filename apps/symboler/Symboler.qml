@@ -23,6 +23,7 @@ PisakMainWindow {
     PisakApplication {
         id: app
         anchors.fill: parent
+        anchors.margins: 10
 
         onExitApp: main.close()
 
@@ -33,7 +34,7 @@ PisakMainWindow {
 
         PisakScanningGroup {
             id: mainScanningGroup
-            elements: [mainMenuGroup, sideMenuGroup, inputMenuGroup]
+            elements: [mainMenuGroup, sideMenuGroup, inputMenuGroup, pager]
         }
 
         PisakScanningGroup {
@@ -90,23 +91,15 @@ PisakMainWindow {
                     Layout.alignment: Qt.AlignVCenter
                     spacing: 2
 
-                    RowLayout {
-                        spacing: 5
+                    PisakImage {
+                        Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
+                        source: pisak.resources.getIconPath("funkcje_header")
                         Layout.alignment: Qt.AlignHCenter
-
-                        SymbolerLabel {
-                            text: qsTr("NARZĘDZIA")
-                        }
-
-                        PisakImage {
-                            Layout.maximumHeight: 2 * PisakGlobals.fontPixelSize
-                            source: pisak.resources.getIconPath("tools")
-                        }
                     }
 
                     SymbolerButtonScanningTeleporter {
                         id: buttonFromMainMenuToPager
-                        text: qsTr("LITERY")
+                        text: qsTr("SYMBOLE")
                         iconName: "symbols"
                         controller: scanningController
                         targetGroup: sideMenuGroup
