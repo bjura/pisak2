@@ -55,7 +55,7 @@ PisakMainWindow {
         ColumnLayout {
             width: parent.width
             height: parent.height
-            spacing: 10
+            spacing: 5
 
             RowLayout {
                 Layout.alignment: Qt.AlignVCenter
@@ -63,6 +63,7 @@ PisakMainWindow {
 
                 SymbolerInput {
                     id: inputPanel
+                    Layout.preferredHeight: 1.2 * pager.cellHeight
                     symbolWidth: pager.cellWidth
                     symbolHeight: pager.cellHeight
                 }
@@ -75,11 +76,13 @@ PisakMainWindow {
                     SymbolerSquareButton {
                         iconName: "nav_left"
                         onClicked: inputPanel.scrollBackward()
+                        Layout.fillHeight: false
                     }
 
                     SymbolerSquareButton {
                         iconName: "nav_right"
                         onClicked: inputPanel.scrollForward()
+                        Layout.fillHeight: false
                     }
                 }
             }

@@ -8,6 +8,6 @@ PisakButton {
     Layout.minimumWidth: 5 * PisakGlobals.fontPixelSize
     Layout.preferredWidth: 8 * PisakGlobals.fontPixelSize
     Layout.preferredHeight: 3 * PisakGlobals.fontPixelSize
-    Layout.fillHeight: false
+    Layout.fillHeight: true
     Layout.fillWidth: true
 }
