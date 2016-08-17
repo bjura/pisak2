@@ -20,7 +20,10 @@ ColumnLayout {
     PisakPredictor {
         id: __predictor
 
-        property var predictionList: []
+        property var __defaultPredictions: ["Chciałbym", "Czy", "Jak", "Jestem",
+                            "Nie", "Niestety", "Rzeczywiście", "Super", "Witam"]
+
+        property var predictionList: __defaultPredictions
 
         onPredictionsChanged: predictionList = predictions.split(",")
     }
