@@ -40,6 +40,10 @@ To run symboler:
 
 python3 scripts/main.py apps/symboler/Symboler.qml
 
+## ... and others
+
+There are drafts or basic classes for other apllications in the 'apps' folder but work on them is still in progress. However their GUIs can be launched in a similar fashion to the above ones with a similar naming convention, for example: apps/moviePlayer/MoviePlayer.qml
+
 
 # CREDITS
 
