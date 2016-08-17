@@ -21,6 +21,10 @@ cd pisak2
 
 pip3 install -e .
 
+## RELEASE
+
+Release v1.0, also as a debian package, can be downloaded from here https://github.com/bjura/pisak2/releases/tag/v1.0
+
 
 # HOW TO RUN
 
