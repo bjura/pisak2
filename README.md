@@ -62,7 +62,7 @@ PISAK is almost all about GUI and in order to create a modern, dynamic user expe
 
 Each application in 'apps' consists mainly of the main file named just as the application folder but starting with an upper-case letter and QML files that define custom components, GUI and also non-GUI ones, specific for the given application. Any custom component always inherits from some base component from 'pisak'.
 
-As mentioned above in the *how to run* section, some of the applications need further work to be done to get them look and work as they should do. Some components are already prepared and they only need to be put together and given some finishing touches. Among other general features that either requires some improvements or are yet to be implemented one can list, for example, translations or other input devices handling, including some free-choice based ones like eyetracking.
+As mentioned above in the *how to run* section, some of the applications need further work to be done to get them look and work as they should. Some components are already prepared and they only need to be put together and given some finishing touches. Among other general features that either requires some improvements or are yet to be implemented one can list, for example, translations or other input devices handling, including some free-choice based ones like eyetracking.
 
 
 # CREDITS
