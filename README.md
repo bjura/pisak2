@@ -1,4 +1,4 @@
-#*Polish Integrative System of Alternative Communication*
+#*Polish Integrating System of Alternative Communication*
 
 PISAK is a program for people with severe impairments of muscle control that allows them to operate basic computer functionalities through binary (0-1) input.
 
